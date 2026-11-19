@@ -73,7 +73,23 @@ structure (not its contents).
 npm test            # vitest
 npm run typecheck   # vue-tsc
 npm run fixture     # regenerate the demo export
+npm run leakcheck   # scan tracked files for personal data
 ```
+
+### Keeping your data out of commits
+
+`npm install` enables a pre-commit hook (`.githooks/pre-commit`). It blocks:
+
+- anything under `exports/`, media files outside `fixtures/`, and absolute home-directory paths;
+- your own identifiers (username, name, email, phone, media IDs), read at commit time from your
+  export. Tell it where your export is in a gitignored `.leakcheck.local`:
+
+  ```
+  export=/path/to/your/instagram-export
+  # or literal strings, one per line
+  ```
+
+Matches are reported by file only, never by value. CI runs the generic rules on every PR.
 
 ## License
 
