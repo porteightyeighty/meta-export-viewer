@@ -1,6 +1,7 @@
 <script setup lang="ts" generic="T">
 /** Filterable list. `keys` picks the searchable text of each item; rendering is up to the slot. */
 import { computed, ref } from "vue";
+import { fold as norm } from "../text.ts";
 
 const props = withDefaults(defineProps<{ items: T[]; keys: (item: T) => string[]; placeholder?: string; limit?: number }>(), {
   placeholder: "Search",
@@ -9,7 +10,6 @@ const props = withDefaults(defineProps<{ items: T[]; keys: (item: T) => string[]
 const query = defineModel<string>("query", { default: "" });
 const shown = ref(props.limit);
 
-const norm = (s: string) => s.normalize("NFKD").replace(/[̀-ͯ]/g, "").toLowerCase();
 const filtered = computed(() => {
   const q = norm(query.value.trim());
   if (!q) return props.items;
