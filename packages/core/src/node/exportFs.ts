@@ -23,7 +23,6 @@ export const consoleLogger: Logger = {
 export class ExportDir {
   readonly root: string;
   readonly warnings: string[] = [];
-  private hashIndex?: Map<string, string>;
   private log: Logger;
 
   constructor(root: string, log: Logger = consoleLogger) {
@@ -93,15 +92,6 @@ export class ExportDir {
   /** md5 of a file inside the export. */
   hash(rel: string) {
     return crypto.createHash("md5").update(fs.readFileSync(this.abs(rel))).digest("hex");
-  }
-
-  /** Lazily built index content-hash → path for every file under `dir`. */
-  hashLookup(dir: string, digest: string): string | undefined {
-    if (!this.hashIndex) {
-      this.hashIndex = new Map();
-      for (const f of this.walk(dir)) this.hashIndex.set(this.hash(f), f);
-    }
-    return this.hashIndex.get(digest);
   }
 
   *walk(rel: string): Generator<string> {

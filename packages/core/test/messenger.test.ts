@@ -62,6 +62,15 @@ describe("loadThreads (fixture)", () => {
 });
 
 describe("helpers", () => {
+  it("ExportDir.abs refuses paths outside the export", () => {
+    const ex = new ExportDir(fixture, silent);
+    expect(ex.abs("media/x.png")).toBe(path.join(fixture, "media/x.png"));
+    expect(() => ex.abs("../outside")).toThrow(/escapes/);
+    expect(() => ex.abs("/etc/passwd")).toThrow(/escapes/);
+    expect(() => ex.abs("media/../../instagram-sample-evil/x")).toThrow(/escapes/);
+    expect(ex.exists("../../package.json")).toBe(false);
+  });
+
   it("toShare", () => {
     expect(toShare({ link: "https://www.instagram.com/reels/abc/" }).kind).toBe("reel");
     expect(toShare({ link: "https://www.instagram.com/someone" }).kind).toBe("profile");
