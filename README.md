@@ -8,7 +8,8 @@ entirely on your own machine. A Facebook viewer is planned and will share the sa
 - Archived posts
 - Direct messages: inbox and requests, full chats with photos, video, voice notes, shared posts/reels,
   reactions; search by friend, across all chats, or within one chat
-- Coming next: Stories, a Settings / Accounts Center area ([ROADMAP.md](ROADMAP.md))
+- Stories archive by month, with a full-screen viewer (progress bars, tap/arrow navigation, auto-advance)
+- Coming next: a Settings / Accounts Center area ([ROADMAP.md](ROADMAP.md))
 
 > **Not affiliated with, endorsed by, or connected to Meta Platforms, Inc.** Instagram and
 > Facebook are trademarks of Meta. This project uses no Meta code or assets; icons are original.

@@ -133,6 +133,27 @@ code { font-size: 12px; }
 .ig-archive-head { display: flex; align-items: center; gap: 8px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
 .ig-archive-head h2 { font-size: 20px; font-weight: 400; margin: 0; }
 .ig-archive-note { text-align: center; margin: 24px 0; }
+.ig-archive-tabs { border-top: 0; }
+.ig-month { font-size: 16px; font-weight: 600; margin: 24px 0 12px; }
+.ig-story-grid { grid-template-columns: repeat(4, 1fr); }
+.ig-story-tile { aspect-ratio: 9 / 16; }
+.ig-story-date { position: absolute; top: 8px; left: 8px; min-width: 40px; padding: 4px 6px; border-radius: 6px; background: var(--bg); color: var(--text); font-size: 11px; line-height: 1.2; text-align: center; display: flex; flex-direction: column; }
+.ig-story-date b { font-size: 16px; }
+
+/* story viewer */
+.ig-modal.ig-story-modal { background: #1a1a1a; }
+.ig-story { position: relative; height: min(94vh, 860px); aspect-ratio: 9 / 16; max-width: calc(100vw - 16px); border-radius: 8px; overflow: hidden; background: #000; color: #fff; }
+.ig-story-media { position: absolute; inset: 0; cursor: pointer; }
+.ig-story-bars { position: absolute; z-index: 1; top: 8px; left: 8px; right: 8px; display: flex; gap: 2px; }
+.ig-story-bar { flex: 1; height: 2px; border-radius: 1px; background: rgba(255,255,255,.35); overflow: hidden; }
+.ig-story-bar i { display: block; height: 100%; width: 0; background: #fff; }
+.ig-story-bar i.done { width: 100%; }
+.ig-story-bar i.run { animation: ig-story-run linear forwards; }
+@keyframes ig-story-run { from { width: 0; } to { width: 100%; } }
+.ig-story-head { position: absolute; z-index: 1; top: 18px; left: 12px; right: 12px; display: flex; align-items: center; gap: 8px; font-size: 14px; text-shadow: 0 0 4px rgba(0,0,0,.5); }
+.ig-story-ago { opacity: .7; }
+.ig-story-pause { margin-left: auto; border: 0; background: none; color: #fff; cursor: pointer; font-size: 14px; padding: 6px; }
+.ig-story-caption { position: absolute; z-index: 1; left: 12px; right: 12px; bottom: 16px; margin: 0; padding: 8px 12px; border-radius: 8px; background: rgba(0,0,0,.5); white-space: pre-line; text-align: center; pointer-events: none; }
 
 /* modal */
 .ig-modal { background: var(--overlay); }

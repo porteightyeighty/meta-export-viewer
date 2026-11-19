@@ -3,9 +3,10 @@
 import { ref, watch } from "vue";
 import type { MediaItem } from "../../types/meta.ts";
 
-const props = withDefaults(defineProps<{ item: MediaItem; active?: boolean; controls?: boolean; fit?: "cover" | "contain" }>(), {
+const props = withDefaults(defineProps<{ item: MediaItem; active?: boolean; controls?: boolean; loop?: boolean; fit?: "cover" | "contain" }>(), {
   active: true,
   controls: true,
+  loop: true,
   fit: "contain",
 });
 const video = ref<HTMLVideoElement>();
@@ -27,7 +28,7 @@ watch(
     :controls="controls"
     :autoplay="active"
     playsinline
-    loop
+    :loop="loop"
     preload="metadata"
     :style="{ objectFit: fit }"
   />

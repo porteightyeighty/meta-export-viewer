@@ -106,6 +106,20 @@ export function buildInstagram(ex: ExportDir) {
   const arch = ex.readJson<{ ig_archived_post_media?: RawPost[] }>(`${MEDIA_DIR}/archived_posts.json`);
   const archived = (arch?.ig_archived_post_media ?? []).map((p) => toPost(p, "a")).filter((p): p is Post => !!p).sort(newestFirst);
 
+  // ── stories ──────────────────────────────────────────────────────────
+  // Not via toMedia: its posts.json content-hash fallback would hash every story file.
+  const rawStories = ex.readJson<{ ig_stories?: RawMedia[] }>(`${MEDIA_DIR}/stories.json`)?.ig_stories ?? [];
+  const stories = rawStories
+    .flatMap((m): Post[] => {
+      const rel = resolveUri(m.uri);
+      if (!rel) return [];
+      const size = ex.size(rel);
+      const timestamp = toMs(m.creation_timestamp) ?? 0;
+      const media: MediaItem = { src: mediaUrl(rel), kind: VIDEO.test(rel) ? "video" : "image", takenAt: timestamp, width: size?.width, height: size?.height };
+      return [{ id: "s" + path.basename(m.uri).replace(/\.\w+$/, ""), timestamp, caption: (m.title ?? "").trim(), media: [media] }];
+    })
+    .sort(newestFirst);
+
   // ── connections ──────────────────────────────────────────────────────
   const toPerson = (e: StringListEntry): Person => {
     const r = fromStringList(e);
@@ -138,10 +152,10 @@ export function buildInstagram(ex: ExportDir) {
     counts: { posts: posts.length, followers: followers.length, following: following.length },
   };
 
-  ex.info(`profile @${profile.username}: ${posts.length} posts, ${archived.length} archived, ${followers.length} followers, ${following.length} following`);
+  ex.info(`profile @${profile.username}: ${posts.length} posts, ${archived.length} archived, ${stories.length} stories, ${followers.length} followers, ${following.length} following`);
 
   const direct = buildDirect(ex, resolveUri, profile.name);
-  return { profile, posts, archived, followers, following, ...direct };
+  return { profile, posts, archived, stories, followers, following, ...direct };
 }
 
 /** Lists are either bare arrays or wrapped in a single `relationships_*` key. */
