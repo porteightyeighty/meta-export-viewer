@@ -42,6 +42,20 @@ describe("buildInstagram (fixture)", () => {
     expect(d.following[0].username).toBeTruthy();
   });
 
+  it("builds Direct datasets", () => {
+    const t = d.threads as { me: string; items: { id: string; box: string; last?: { text: string } }[] };
+    expect(t.me).toBe("Sunny Sample");
+    expect(t.items).toHaveLength(5);
+    expect(t.items.filter((i) => i.box === "requests")).toHaveLength(1);
+    expect(t.items.every((i) => (d as Record<string, unknown>)[`thread/${i.id}`])).toBe(true);
+    expect(t.items.find((i) => i.id.startsWith("milohikes"))?.last?.text).toBe("see you sunday");
+    const ada = (d as any)[`thread/${t.items.find((i) => i.id.startsWith("adalovelace"))!.id}`];
+    const photo = ada.messages.find((m: any) => m.media).media[0];
+    expect(photo.src).toMatch(/^\/export\/your_instagram_activity\/messages\//);
+    expect(photo.width).toBeGreaterThan(0);
+    expect((d.messageIndex as unknown[]).length).toBeGreaterThan(300);
+  });
+
   it("tolerates a missing export without throwing", () => {
     const warnings: string[] = [];
     const empty = buildInstagram(new ExportDir(path.join(fixture, "nope"), { info() {}, warn: (m) => warnings.push(m) }));
