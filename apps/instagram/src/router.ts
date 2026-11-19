@@ -18,6 +18,15 @@ export const router = createRouter({
       component: () => import("./views/ArchiveView.vue"),
       children: [{ path: "p/:id", name: "archived-post", component: () => import("./views/PostModal.vue"), props: { source: "archived" } }],
     },
+    {
+      path: "/direct",
+      component: () => import("./views/DirectView.vue"),
+      children: [
+        { path: "", name: "direct", component: () => import("./views/DirectEmpty.vue") },
+        { path: "requests", name: "direct-requests", component: () => import("./views/DirectEmpty.vue") },
+        { path: "t/:id", name: "thread", component: () => import("./views/ThreadView.vue"), props: true },
+      ],
+    },
     { path: "/:rest(.*)*", component: () => import("./views/ComingSoon.vue") },
   ],
   scrollBehavior: (to, from, saved) => saved ?? (to.matched[0]?.path === from.matched[0]?.path ? false : { top: 0 }),

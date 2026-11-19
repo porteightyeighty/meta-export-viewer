@@ -1,0 +1,95 @@
+{
+  "participants": [
+    {
+      "name": "Jun Bakes"
+    },
+    {
+      "name": "Ada Lovelace"
+    },
+    {
+      "name": "Milo Hikes"
+    },
+    {
+      "name": "Sunny Sample"
+    }
+  ],
+  "messages": [
+    {
+      "sender_name": "Sunny Sample",
+      "timestamp_ms": 1758467100000,
+      "content": "\u00f0\u009f\u0091\u008d",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Ada Lovelace",
+      "timestamp_ms": 1758466800000,
+      "content": "meet at the car park at 9",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Milo Hikes",
+      "timestamp_ms": 1758356400000,
+      "content": "forecast looks fine, count me in",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Jun Bakes",
+      "timestamp_ms": 1758278520000,
+      "content": "I'll bring snacks \u00f0\u009f\u00a5\u0090",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Jun Bakes",
+      "timestamp_ms": 1758278460000,
+      "content": "yesss",
+      "reactions": [
+        {
+          "reaction": "\u00f0\u009f\u0094\u00a5",
+          "actor": "Ada Lovelace"
+        },
+        {
+          "reaction": "\u00f0\u009f\u0094\u00a5",
+          "actor": "Sunny Sample"
+        }
+      ],
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Sunny Sample",
+      "timestamp_ms": 1758278400000,
+      "content": "I'm in, Fictional Falls?",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Milo Hikes",
+      "timestamp_ms": 1758276300000,
+      "content": "depends on the weather tbh",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Ada Lovelace",
+      "timestamp_ms": 1758276180000,
+      "content": "me!",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Jun Bakes",
+      "timestamp_ms": 1758276000000,
+      "content": "who's in for sunday?",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    }
+  ],
+  "title": "Hike crew \u00f0\u009f\u00a5\u00be",
+  "is_still_participant": true,
+  "thread_path": "inbox/hikecrew_1790000000000002",
+  "magic_words": []
+}

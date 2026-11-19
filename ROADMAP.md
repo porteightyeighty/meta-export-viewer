@@ -11,12 +11,16 @@ Direction for the project. Phases build on each other; shared pieces go in `pack
 - Merges `posts_N.json` (grouping) with `posts.json` (place, hashtags, location), matched by uri or file content
 - Media dimensions sniffed from file headers (exports report 0)
 
-## 2. Direct (messages)
-- `/direct` two-pane inbox: thread list with search, Primary / General / Requests tabs
-- Thread view: bubbles grouped by sender, day separators, photos/videos/audio, shared posts & links,
-  reactions, unsent/deleted placeholders, in-thread search
-- Loader: `messages/inbox/*/message_N.json` (+ `message_requests/`). Messenger schema → `core/src/node/messenger.ts`
-  (Facebook Messenger uses the same schema), `core/src/client/components/ThreadView.vue`
+## 2. Direct (messages) ✅
+- `/direct` two-pane inbox (Messages / Requests; the export has no Primary/General split), compact nav rail
+- Search by name, plus search across every chat's messages that jumps to the hit
+- Thread view: bubbles grouped into same-sender runs, time breaks, sender names in groups, large emoji,
+  photos/videos (lightbox), voice notes, calls, shared posts/reels/stories/profiles/links, reactions,
+  legacy "liked a message" notices, "Message unavailable" for content the export dropped
+- In-chat search (accent-insensitive, Enter / Shift+Enter), info pane with members and shared media
+- Remote-only images and GIFs are click-to-load; links in message requests carry a warning
+- Loader `core/src/node/messenger.ts` (merges `message_N.json` parts; Facebook Messenger uses the same schema),
+  layout/search helpers `core/src/client/chat.ts` + `text.ts`
 
 ## 3. Stories
 - Stories archive grid by month, full-screen viewer with progress bars, tap/arrow navigation, auto-advance
@@ -45,5 +49,5 @@ Direction for the project. Phases build on each other; shared pieces go in `pack
 | Mojibake repair, label_values / string_map helpers | Post grid, profile header | Timeline, profile cover |
 | Export folder reading, media-size sniffing, Vite plugin | Followers / following | Friends list |
 | Lightbox, Carousel, MediaView, SearchableList | Reels tab | Videos |
-| Messenger thread loader + ThreadView (phase 2) | Direct styling | Messenger styling |
+| Messenger thread loader, chat layout + search helpers | Direct UI and styling | Messenger UI |
 | SettingsShell (phase 4) | Accounts Center sections | Settings & privacy sections |

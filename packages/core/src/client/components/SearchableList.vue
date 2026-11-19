@@ -1,6 +1,7 @@
 <script setup lang="ts" generic="T">
 /** Filterable list. `keys` picks the searchable text of each item; rendering is up to the slot. */
 import { computed, ref } from "vue";
+import { fold as norm } from "../text.ts";
 
 const props = withDefaults(defineProps<{ items: T[]; keys: (item: T) => string[]; placeholder?: string; limit?: number }>(), {
   placeholder: "Search",
@@ -9,7 +10,6 @@ const props = withDefaults(defineProps<{ items: T[]; keys: (item: T) => string[]
 const query = defineModel<string>("query", { default: "" });
 const shown = ref(props.limit);
 
-const norm = (s: string) => s.normalize("NFKD").replace(/[̀-ͯ]/g, "").toLowerCase();
 const filtered = computed(() => {
   const q = norm(query.value.trim());
   if (!q) return props.items;
@@ -32,6 +32,7 @@ function onScroll(e: Event) {
     <div class="mev-search-results" @scroll.passive="onScroll">
       <slot v-for="(item, i) in visible" :key="i" :item="item" :index="i" />
       <slot v-if="!filtered.length" name="empty"><p class="mev-search-empty">No results found.</p></slot>
+      <slot name="after" :query="query" />
     </div>
   </div>
 </template>

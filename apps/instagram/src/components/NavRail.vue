@@ -10,7 +10,7 @@ const items = [
   { to: "/search", icon: "search", label: "Search", soon: true },
   { to: "/explore", icon: "explore", label: "Explore", soon: true },
   { to: "/reels", icon: "reels", label: "Reels", soon: true },
-  { to: "/direct", icon: "messages", label: "Messages", soon: true },
+  { to: "/direct", icon: "messages", label: "Messages" },
   { to: "/activity", icon: "heart", label: "Notifications", soon: true },
   { to: "/archive", icon: "archive", label: "Archive" },
 ];
