@@ -50,6 +50,7 @@ describe("loadThreads (fixture)", () => {
     expect(ada.messages.filter((m) => m.notice).map((m) => m.text?.trim())).toEqual(["Liked a message", "Reacted 😂 to your message"]);
     expect(ada.messages.filter((m) => m.media).length).toBe(3);
     expect(ada.messages.find((m) => m.remote)?.remote?.[0].host).toBe("cdn.example.com");
+    expect(ada.messages.at(-1)?.unavailable).toBe(true);
     expect(resolved.some((u) => /^https?:/.test(u))).toBe(false);
   });
 

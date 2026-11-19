@@ -326,6 +326,7 @@ thread("inbox", "adalovelace_1790000000000003", [ADA], [
   msg(MY_NAME, msAgo(5, 400), { photos: [photo(3, msAgo(5, 400))] }),
   msg(ADA, msAgo(5, 410), { content: "Reacted 😂 to your message " }),
   msg(ADA, msAgo(4, 300), { content: "this one only exists online", photos: [{ uri: "https://cdn.example.com/remote-photo.jpg" }] }),
+  msg(ADA, msAgo(4, 310)), // no content at all: deleted/unsupported in the real export
 ]);
 
 // 4) Shared posts, reels, stories, a profile and a GIF.

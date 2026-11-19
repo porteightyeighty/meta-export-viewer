@@ -74,6 +74,8 @@ export interface ChatMessage {
   share?: Share;
   reactions?: Reaction[];
   callSec?: number;
+  /** nothing displayable survived in the export (deleted, unsupported, or missing media) */
+  unavailable?: boolean;
 }
 
 export type ThreadBox = "inbox" | "requests";

@@ -46,6 +46,7 @@ describe("search + preview", () => {
     expect(previewText(m("a", 0, { text: undefined, share: { kind: "reel" } }), "me")).toBe("Sent a reel");
     expect(previewText(m("me", 0, { text: undefined, media: [{ src: "", kind: "image" }] }), "me")).toBe("You sent a photo");
     expect(previewText(m("a", 0, { text: undefined, callSec: 0 }), "me")).toBe("Missed call");
+    expect(previewText(m("a", 0, { text: undefined, unavailable: true }), "me")).toBe("Sent a message");
     expect(callLength(754)).toBe("12m 34s");
   });
 

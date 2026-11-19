@@ -84,7 +84,7 @@ export function previewText(m: ChatMessage | undefined, me: string): string {
   if (media?.kind === "video") return sent + "a video";
   if (media || m.remote) return sent + "a photo";
   if (m.callSec !== undefined) return m.callSec ? `Call · ${callLength(m.callSec)}` : "Missed call";
-  return "";
+  return mine ? "You sent a message" : "Sent a message";
 }
 
 /** 75 → "1m 15s", 3700 → "1h 1m". */

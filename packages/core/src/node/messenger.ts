@@ -150,7 +150,8 @@ function toMessage(m: RawMessage, opts: LoadThreadsOptions): ChatMessage | undef
     if (by.size) out.reactions = [...by.values()];
   }
 
-  if (!out.text && !out.media && !out.remote && !out.share && out.callSec === undefined) return undefined;
+  // Deleted or unsupported content (or media missing from the export) still took place in the chat.
+  if (!out.text && !out.media && !out.remote && !out.share && out.callSec === undefined) out.unavailable = true;
   return out;
 }
 
