@@ -19,6 +19,12 @@ export const router = createRouter({
       children: [{ path: "p/:id", name: "archived-post", component: () => import("./views/PostModal.vue"), props: { source: "archived" } }],
     },
     {
+      path: "/archive/stories",
+      component: () => import("./views/ArchiveView.vue"),
+      props: { kind: "stories" },
+      children: [{ path: ":id", name: "story", component: () => import("./views/StoryViewer.vue"), props: true }],
+    },
+    {
       path: "/direct",
       component: () => import("./views/DirectView.vue"),
       children: [

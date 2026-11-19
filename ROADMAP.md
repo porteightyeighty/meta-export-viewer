@@ -22,9 +22,11 @@ Direction for the project. Phases build on each other; shared pieces go in `pack
 - Loader `core/src/node/messenger.ts` (merges `message_N.json` parts; Facebook Messenger uses the same schema),
   layout/search helpers `core/src/client/chat.ts` + `text.ts`
 
-## 3. Stories
-- Stories archive grid by month, full-screen viewer with progress bars, tap/arrow navigation, auto-advance
-- Highlights row on the profile (if present in the export)
+## 3. Stories ✅
+- `/archive/stories`: grid grouped by month with date badges, Posts / Stories switch on the archive
+- Full-screen viewer (`/archive/stories/:id`): per-day progress bars, tap left/right or ←/→, auto-advance
+  (5 s for photos, video length for videos), Space to pause, plays oldest → newest
+- Highlights: not included in the JSON export (checked Nov 2026), so there is no highlights row
 
 ## 4. Settings / Accounts Center
 - Personal details (email, phone, birthday: shown only here)

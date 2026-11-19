@@ -347,4 +347,11 @@ thread("message_requests", "promodeals4u_1790000000000005", ["Promo Deals"], [
 ]);
 write(`${DM}/inbox/emptythread_1790000000000006/.gitkeep`, "");
 
+// Stories: 12 across three months, several per day; the real file isn't sorted, so neither is this one.
+const STORY_TITLES = ["", "", "Golden hour ☀️", "", "Sunday reset", ""];
+const stories = [3, 3, 3, 4, 30, 30, 31, 58, 58, 58, 59, 60].map((d, k) =>
+  makeMedia("stories", Math.round(BASE - d * 86400 - (k % 3) * 3600), STORY_TITLES[k % STORY_TITLES.length], [270, 480]),
+);
+write("your_instagram_activity/media/stories.json", { ig_stories: stories.sort(() => rand() - 0.5) });
+
 console.log(`wrote ${OUT}`);

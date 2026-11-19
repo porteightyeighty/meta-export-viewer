@@ -42,6 +42,16 @@ describe("buildInstagram (fixture)", () => {
     expect(d.following[0].username).toBeTruthy();
   });
 
+  it("reads stories newest first with sizes", () => {
+    expect(d.stories).toHaveLength(12);
+    expect([...d.stories].sort((a, b) => b.timestamp - a.timestamp)).toEqual(d.stories);
+    for (const s of d.stories) {
+      expect(s.media[0].src).toMatch(/^\/export\/media\/stories\//);
+      expect(s.media[0].width! / s.media[0].height!).toBeCloseTo(270 / 480);
+    }
+    expect(d.stories.some((s) => s.caption === "Golden hour ☀️")).toBe(true);
+  });
+
   it("builds Direct datasets", () => {
     const t = d.threads as { me: string; items: { id: string; box: string; last?: { text: string } }[] };
     expect(t.me).toBe("Sunny Sample");
