@@ -32,6 +32,7 @@ function onScroll(e: Event) {
     <div class="mev-search-results" @scroll.passive="onScroll">
       <slot v-for="(item, i) in visible" :key="i" :item="item" :index="i" />
       <slot v-if="!filtered.length" name="empty"><p class="mev-search-empty">No results found.</p></slot>
+      <slot name="after" :query="query" />
     </div>
   </div>
 </template>

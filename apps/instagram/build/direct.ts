@@ -6,8 +6,8 @@ import { mediaUrl } from "./media.ts";
 
 const MESSAGES = "your_instagram_activity/messages";
 
-/** [threadId, messageIndex, searchable text] */
-export type MessageIndexRow = [string, number, string];
+/** [threadId, messageIndex, searchable text, timestamp ms] */
+export type MessageIndexRow = [string, number, string, number];
 
 export function buildDirect(ex: ExportDir, resolveUri: (uri: string) => string | undefined, ownerName?: string) {
   const toMedia = (uri: string, kind: MediaItem["kind"]): MediaItem | undefined => {
@@ -50,7 +50,7 @@ export function buildDirect(ex: ExportDir, resolveUri: (uri: string) => string |
     t.messages.forEach((m, i) => {
       if (m.notice) return;
       const text = [m.text, m.share?.text, m.share?.owner && `@${m.share.owner}`].filter(Boolean).join(" · ");
-      if (text) messageIndex.push([t.id, i, text]);
+      if (text) messageIndex.push([t.id, i, text, m.ts]);
     });
   }
 
