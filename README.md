@@ -6,7 +6,9 @@ entirely on your own machine. A Facebook viewer is planned and will share the sa
 - Profile with post grid, carousels, video, captions, places
 - Followers / following with search and "follows you" markers
 - Archived posts
-- Coming next: Direct messages, Stories, a Settings / Accounts Center area ([ROADMAP.md](ROADMAP.md))
+- Direct messages: inbox and requests, full chats with photos, video, voice notes, shared posts/reels,
+  reactions; search by friend, across all chats, or within one chat
+- Coming next: Stories, a Settings / Accounts Center area ([ROADMAP.md](ROADMAP.md))
 
 > **Not affiliated with, endorsed by, or connected to Meta Platforms, Inc.** Instagram and
 > Facebook are trademarks of Meta. This project uses no Meta code or assets; icons are original.
@@ -17,7 +19,9 @@ Your export contains private messages, contact details and login history. This v
 
 - runs only on `127.0.0.1` (not reachable from your network),
 - reads your export folder **read-only** and never copies or uploads it,
-- has no analytics, no external requests (except an optional OpenStreetMap link you can click on a post's location).
+- has no analytics and makes no external requests on its own. Links (a post's OpenStreetMap location, shared
+  posts and links in messages) only open when you click them, and images that exist only on a remote server
+  (some DM photos, GIFs) show a placeholder until you click "Load".
 
 Keep your export out of the repo: `exports/` is gitignored.
 
@@ -54,10 +58,12 @@ Open <http://127.0.0.1:5173>. With no export configured, it shows a built-in **d
 ```
 packages/core/      shared by every platform
   src/node/         export reading: mojibake repair, schema helpers, media-size sniffing,
+                    Messenger-style thread loader (shared with Facebook),
                     Vite plugin that builds datasets in Node and serves /api/data/*.json + /export/*
-  src/client/       Vue building blocks: Lightbox, Carousel, SearchableList, MediaView, useData, date formats
+  src/client/       Vue building blocks: Lightbox, Carousel, SearchableList, MediaView, useData, date formats,
+                    chat layout + accent-insensitive search helpers
 apps/instagram/
-  build/            Instagram export → profile / posts / archived / followers / following
+  build/            Instagram export → profile / posts / archived / followers / following / threads
   src/              the Instagram-style UI (Vue 3 + vue-router)
 fixtures/           synthetic sample export + its generator (npm run fixture)
 ```
