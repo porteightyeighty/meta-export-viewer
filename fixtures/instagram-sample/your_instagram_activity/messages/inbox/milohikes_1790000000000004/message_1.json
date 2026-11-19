@@ -1,0 +1,93 @@
+{
+  "participants": [
+    {
+      "name": "Milo Hikes"
+    },
+    {
+      "name": "Sunny Sample"
+    }
+  ],
+  "messages": [
+    {
+      "sender_name": "Milo Hikes",
+      "timestamp_ms": 1759208520000,
+      "content": "see you sunday",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Sunny Sample",
+      "timestamp_ms": 1759208400000,
+      "content": "",
+      "share": {
+        "link": "https://media1.giphy.com/media/EXAMPLEgif/giphy.gif"
+      },
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Milo Hikes",
+      "timestamp_ms": 1759152060000,
+      "content": "you have to follow her",
+      "share": {
+        "link": "https://www.instagram.com/_u/noor.reads",
+        "profile_share_username": "noor.reads",
+        "profile_share_name": "Noor Reads"
+      },
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Milo Hikes",
+      "timestamp_ms": 1759152000000,
+      "content": "",
+      "share": {
+        "link": "https://www.instagram.com/stories/noor.reads/1790000000000200",
+        "original_content_owner": "noor.reads"
+      },
+      "reactions": [
+        {
+          "reaction": "\u00f0\u009f\u0098\u008d",
+          "actor": "Sunny Sample"
+        }
+      ],
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Sunny Sample",
+      "timestamp_ms": 1759048860000,
+      "content": "You sent an attachment.",
+      "share": {
+        "link": "https://www.instagram.com/p/EXAMPLEpost1/",
+        "share_text": "Golden hour never misses \u00f0\u009f\u008c\u0085",
+        "original_content_owner": "sunny.sample"
+      },
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Sunny Sample",
+      "timestamp_ms": 1759048800000,
+      "content": "\u00f0\u009f\u0098\u0082\u00f0\u009f\u0098\u0082\u00f0\u009f\u0098\u0082",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Milo Hikes",
+      "timestamp_ms": 1759047600000,
+      "content": "Milo Hikes sent an attachment.",
+      "share": {
+        "link": "https://www.instagram.com/reel/EXAMPLEreel1/",
+        "share_text": "When the trail mix runs out halfway up \u00f0\u009f\u0098\u00a9 #hiking",
+        "original_content_owner": "trail.memes"
+      },
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    }
+  ],
+  "title": "Milo Hikes",
+  "is_still_participant": true,
+  "thread_path": "inbox/milohikes_1790000000000004",
+  "magic_words": []
+}

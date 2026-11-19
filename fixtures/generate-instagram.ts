@@ -227,4 +227,123 @@ write("connections/followers_and_following/following.json", {
   relationships_following: following.map((u, i) => ({ title: u, string_list_data: [{ href: `https://www.instagram.com/_u/${u}`, timestamp: ago(i * 8) }] })),
 });
 
+// ── direct messages ────────────────────────────────────────────────────
+const MY_NAME = "Sunny Sample";
+const DM = "your_instagram_activity/messages";
+const msAgo = (days: number, minutes = 0) => (BASE - days * 86400) * 1000 + minutes * 60_000;
+
+interface RawMsg {
+  sender_name: string;
+  timestamp_ms: number;
+  content?: string;
+  share?: Record<string, string>;
+  photos?: { uri: string; creation_timestamp?: number }[];
+  reactions?: { reaction: string; actor: string; timestamp?: number }[];
+  call_duration?: number;
+  is_geoblocked_for_viewer: boolean;
+  is_unsent_image_by_messenger_kid_parent: boolean;
+}
+const msg = (sender: string, ts: number, extra: Partial<RawMsg> = {}): RawMsg => ({
+  sender_name: sender,
+  timestamp_ms: ts,
+  ...extra,
+  is_geoblocked_for_viewer: false,
+  is_unsent_image_by_messenger_kid_parent: false,
+});
+
+/** Writes a thread folder; messages newest first like the real export, split into parts of `per`. */
+function thread(box: "inbox" | "message_requests", folder: string, others: string[], messages: RawMsg[], opts: { title?: string; per?: number } = {}) {
+  const sorted = [...messages].sort((a, b) => b.timestamp_ms - a.timestamp_ms);
+  const per = opts.per ?? 10_000;
+  for (let k = 0; k * per < sorted.length; k++) {
+    write(`${DM}/${box}/${folder}/message_${k + 1}.json`, {
+      participants: [...others, MY_NAME].map((name) => ({ name })),
+      messages: sorted.slice(k * per, (k + 1) * per),
+      title: opts.title ?? others[0],
+      is_still_participant: true,
+      thread_path: `${box}/${folder}`,
+      magic_words: [],
+    });
+  }
+}
+
+// 1) A long 1:1 chat, split across two parts, to exercise paging, time breaks and search.
+const RIVER = "River Okafor";
+const LINES_THEM = [
+  "are you around this weekend?", "haha yes", "omg 😂", "did you see the match", "running late, 10 mins",
+  "that café on the corner is open again", "Zoë says hi", "can't wait for the trip ⛰️", "ok sounds good",
+  "send me the photos when you can", "lol", "brb", "what time works?", "I'm so tired today", "🙌",
+];
+const LINES_ME = [
+  "yes! what's the plan?", "hahaha", "on my way", "no I missed it, who won?", "all good, take your time",
+  "the croissants there are unreal", "say hi back!", "same!! packing tonight", "👍", "will do", "❤️",
+  "7ish?", "same honestly", "let's do saturday", "nice one",
+];
+const river: RawMsg[] = [];
+for (let day = 160; day >= 1; day -= 1 + Math.floor(rand() * 3)) {
+  let minute = Math.floor(rand() * 600) + 480;
+  for (let k = 0, n = 2 + Math.floor(rand() * 8); k < n; k++) {
+    const mine = rand() < 0.5;
+    const m = msg(mine ? MY_NAME : RIVER, msAgo(day, minute), { content: pick(mine ? LINES_ME : LINES_THEM) });
+    if (rand() < 0.08) m.reactions = [{ reaction: pick(["❤️", "😂", "😮"]), actor: mine ? RIVER : MY_NAME }];
+    river.push(m);
+    minute += Math.floor(rand() * 4) + (rand() < 0.15 ? 90 : 0);
+  }
+}
+river.push(msg(RIVER, msAgo(30, 700), { content: "", call_duration: 754 }));
+thread("inbox", "riverokafor_1790000000000001", [RIVER], river, { per: 150 });
+
+// 2) A group chat.
+const CREW = ["Jun Bakes", "Ada Lovelace", "Milo Hikes"];
+const group: RawMsg[] = [
+  msg("Jun Bakes", msAgo(12, 600), { content: "who's in for sunday?" }),
+  msg("Ada Lovelace", msAgo(12, 603), { content: "me!" }),
+  msg("Milo Hikes", msAgo(12, 605), { content: "depends on the weather tbh" }),
+  msg(MY_NAME, msAgo(12, 640), { content: "I'm in, Fictional Falls?" }),
+  msg("Jun Bakes", msAgo(12, 641), { content: "yesss", reactions: [{ reaction: "🔥", actor: "Ada Lovelace" }, { reaction: "🔥", actor: MY_NAME }] }),
+  msg("Jun Bakes", msAgo(12, 642), { content: "I'll bring snacks 🥐" }),
+  msg("Milo Hikes", msAgo(11, 500), { content: "forecast looks fine, count me in" }),
+  msg("Ada Lovelace", msAgo(10, 900), { content: "meet at the car park at 9" }),
+  msg(MY_NAME, msAgo(10, 905), { content: "👍" }),
+];
+thread("inbox", "hikecrew_1790000000000002", CREW, group, { title: "Hike crew 🥾" });
+
+// 3) Photos, legacy "liked"/"reacted" notices and a remote-only image.
+const ADA = "Ada Lovelace";
+const adaDir = `${DM}/inbox/adalovelace_1790000000000003`;
+const photo = (i: number, ts: number) => {
+  const uri = `${adaDir}/photos/${1790000000000100 + i}.png`;
+  write(uri, scene(...pick(SHAPES)));
+  return { uri, creation_timestamp: Math.floor(ts / 1000) };
+};
+thread("inbox", "adalovelace_1790000000000003", [ADA], [
+  msg(ADA, msAgo(6, 600), { content: "look what I found" }),
+  msg(ADA, msAgo(6, 601), { photos: [photo(1, msAgo(6, 601))] }),
+  msg(ADA, msAgo(6, 601.5), { photos: [photo(2, msAgo(6, 601.5))] }),
+  msg(MY_NAME, msAgo(6, 620), { content: "Liked a message" }),
+  msg(MY_NAME, msAgo(6, 621), { content: "where is that?!" }),
+  msg(ADA, msAgo(6, 630), { content: "Imaginary Bay 🌊" }),
+  msg(MY_NAME, msAgo(5, 400), { photos: [photo(3, msAgo(5, 400))] }),
+  msg(ADA, msAgo(5, 410), { content: "Reacted 😂 to your message " }),
+  msg(ADA, msAgo(4, 300), { content: "this one only exists online", photos: [{ uri: "https://cdn.example.com/remote-photo.jpg" }] }),
+]);
+
+// 4) Shared posts, reels, stories, a profile and a GIF.
+const MILO = "Milo Hikes";
+thread("inbox", "milohikes_1790000000000004", [MILO], [
+  msg(MILO, msAgo(3, 500), { content: `${MILO} sent an attachment.`, share: { link: "https://www.instagram.com/reel/EXAMPLEreel1/", share_text: "When the trail mix runs out halfway up 😩 #hiking", original_content_owner: "trail.memes" } }),
+  msg(MY_NAME, msAgo(3, 520), { content: "😂😂😂" }),
+  msg(MY_NAME, msAgo(3, 521), { content: "You sent an attachment.", share: { link: "https://www.instagram.com/p/EXAMPLEpost1/", share_text: "Golden hour never misses 🌅", original_content_owner: ME } }),
+  msg(MILO, msAgo(2, 800), { content: "", share: { link: "https://www.instagram.com/stories/noor.reads/1790000000000200", original_content_owner: "noor.reads" }, reactions: [{ reaction: "😍", actor: MY_NAME }] }),
+  msg(MILO, msAgo(2, 801), { content: "you have to follow her", share: { link: "https://www.instagram.com/_u/noor.reads", profile_share_username: "noor.reads", profile_share_name: "Noor Reads" } }),
+  msg(MY_NAME, msAgo(1, 300), { content: "", share: { link: "https://media1.giphy.com/media/EXAMPLEgif/giphy.gif" } }),
+  msg(MILO, msAgo(1, 302), { content: "see you sunday" }),
+]);
+
+// 5) A message request with an external link; 6) a folder without any thread JSON.
+thread("message_requests", "promodeals4u_1790000000000005", ["Promo Deals"], [
+  msg("Promo Deals", msAgo(8, 100), { content: "Congratulations! You won a prize 🎁 claim here", share: { link: "https://prize.example.net/claim", share_text: "Claim your prize" } }),
+]);
+write(`${DM}/inbox/emptythread_1790000000000006/.gitkeep`, "");
+
 console.log(`wrote ${OUT}`);

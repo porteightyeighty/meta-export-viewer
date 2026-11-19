@@ -1,0 +1,197 @@
+{
+  "participants": [
+    {
+      "name": "River Okafor"
+    },
+    {
+      "name": "Sunny Sample"
+    }
+  ],
+  "messages": [
+    {
+      "sender_name": "River Okafor",
+      "timestamp_ms": 1746194340000,
+      "content": "what time works?",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Sunny Sample",
+      "timestamp_ms": 1746012900000,
+      "content": "hahaha",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Sunny Sample",
+      "timestamp_ms": 1746012720000,
+      "content": "will do",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Sunny Sample",
+      "timestamp_ms": 1746012600000,
+      "content": "\u00f0\u009f\u0091\u008d",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "River Okafor",
+      "timestamp_ms": 1746012540000,
+      "content": "Zo\u00c3\u00ab says hi",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "River Okafor",
+      "timestamp_ms": 1746012540000,
+      "content": "Zo\u00c3\u00ab says hi",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "River Okafor",
+      "timestamp_ms": 1746012540000,
+      "content": "that caf\u00c3\u00a9 on the corner is open again",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false,
+      "reactions": [
+        {
+          "reaction": "\u00f0\u009f\u0098\u00ae",
+          "actor": "Sunny Sample"
+        }
+      ]
+    },
+    {
+      "sender_name": "River Okafor",
+      "timestamp_ms": 1746012540000,
+      "content": "I'm so tired today",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Sunny Sample",
+      "timestamp_ms": 1746012360000,
+      "content": "7ish?",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Sunny Sample",
+      "timestamp_ms": 1746006840000,
+      "content": "nice one",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "River Okafor",
+      "timestamp_ms": 1745829600000,
+      "content": "that caf\u00c3\u00a9 on the corner is open again",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Sunny Sample",
+      "timestamp_ms": 1745829480000,
+      "content": "yes! what's the plan?",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "River Okafor",
+      "timestamp_ms": 1745829360000,
+      "content": "brb",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Sunny Sample",
+      "timestamp_ms": 1745829300000,
+      "content": "let's do saturday",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Sunny Sample",
+      "timestamp_ms": 1745829240000,
+      "content": "the croissants there are unreal",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Sunny Sample",
+      "timestamp_ms": 1745829120000,
+      "content": "yes! what's the plan?",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Sunny Sample",
+      "timestamp_ms": 1745829000000,
+      "content": "7ish?",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "River Okafor",
+      "timestamp_ms": 1745753340000,
+      "content": "lol",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Sunny Sample",
+      "timestamp_ms": 1745753280000,
+      "content": "same honestly",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "River Okafor",
+      "timestamp_ms": 1745753160000,
+      "content": "brb",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "River Okafor",
+      "timestamp_ms": 1745494740000,
+      "content": "ok sounds good",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "River Okafor",
+      "timestamp_ms": 1745494680000,
+      "content": "ok sounds good",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Sunny Sample",
+      "timestamp_ms": 1745494620000,
+      "content": "no I missed it, who won?",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Sunny Sample",
+      "timestamp_ms": 1745494500000,
+      "content": "\u00f0\u009f\u0091\u008d",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Sunny Sample",
+      "timestamp_ms": 1745494380000,
+      "content": "same honestly",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    }
+  ],
+  "title": "River Okafor",
+  "is_still_participant": true,
+  "thread_path": "inbox/riverokafor_1790000000000001",
+  "magic_words": []
+}

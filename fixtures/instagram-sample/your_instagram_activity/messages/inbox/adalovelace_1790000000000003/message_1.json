@@ -1,0 +1,99 @@
+{
+  "participants": [
+    {
+      "name": "Ada Lovelace"
+    },
+    {
+      "name": "Sunny Sample"
+    }
+  ],
+  "messages": [
+    {
+      "sender_name": "Ada Lovelace",
+      "timestamp_ms": 1758949200000,
+      "content": "this one only exists online",
+      "photos": [
+        {
+          "uri": "https://cdn.example.com/remote-photo.jpg"
+        }
+      ],
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Ada Lovelace",
+      "timestamp_ms": 1758869400000,
+      "content": "Reacted \u00f0\u009f\u0098\u0082 to your message ",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Sunny Sample",
+      "timestamp_ms": 1758868800000,
+      "photos": [
+        {
+          "uri": "your_instagram_activity/messages/inbox/adalovelace_1790000000000003/photos/1790000000000103.png",
+          "creation_timestamp": 1758868800
+        }
+      ],
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Ada Lovelace",
+      "timestamp_ms": 1758796200000,
+      "content": "Imaginary Bay \u00f0\u009f\u008c\u008a",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Sunny Sample",
+      "timestamp_ms": 1758795660000,
+      "content": "where is that?!",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Sunny Sample",
+      "timestamp_ms": 1758795600000,
+      "content": "Liked a message",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Ada Lovelace",
+      "timestamp_ms": 1758794490000,
+      "photos": [
+        {
+          "uri": "your_instagram_activity/messages/inbox/adalovelace_1790000000000003/photos/1790000000000102.png",
+          "creation_timestamp": 1758794490
+        }
+      ],
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Ada Lovelace",
+      "timestamp_ms": 1758794460000,
+      "photos": [
+        {
+          "uri": "your_instagram_activity/messages/inbox/adalovelace_1790000000000003/photos/1790000000000101.png",
+          "creation_timestamp": 1758794460
+        }
+      ],
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    },
+    {
+      "sender_name": "Ada Lovelace",
+      "timestamp_ms": 1758794400000,
+      "content": "look what I found",
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    }
+  ],
+  "title": "Ada Lovelace",
+  "is_still_participant": true,
+  "thread_path": "inbox/adalovelace_1790000000000003",
+  "magic_words": []
+}

@@ -1,0 +1,27 @@
+{
+  "participants": [
+    {
+      "name": "Promo Deals"
+    },
+    {
+      "name": "Sunny Sample"
+    }
+  ],
+  "messages": [
+    {
+      "sender_name": "Promo Deals",
+      "timestamp_ms": 1758591600000,
+      "content": "Congratulations! You won a prize \u00f0\u009f\u008e\u0081 claim here",
+      "share": {
+        "link": "https://prize.example.net/claim",
+        "share_text": "Claim your prize"
+      },
+      "is_geoblocked_for_viewer": false,
+      "is_unsent_image_by_messenger_kid_parent": false
+    }
+  ],
+  "title": "Promo Deals",
+  "is_still_participant": true,
+  "thread_path": "message_requests/promodeals4u_1790000000000005",
+  "magic_words": []
+}
