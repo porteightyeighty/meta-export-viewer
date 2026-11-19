@@ -1,0 +1,51 @@
+{
+  "profile_user": [
+    {
+      "title": "",
+      "media_map_data": {
+        "Profile Photo": {
+          "uri": "media/profile/202401/avatar_001.png",
+          "creation_timestamp": 1707407711,
+          "title": ""
+        }
+      },
+      "string_map_data": {
+        "Email": {
+          "href": "",
+          "value": "sunny@example.com",
+          "timestamp": 0
+        },
+        "Phone Number": {
+          "href": "",
+          "value": "+00 0000 000000",
+          "timestamp": 0
+        },
+        "Username": {
+          "href": "",
+          "value": "sunny.sample",
+          "timestamp": 0
+        },
+        "Name": {
+          "href": "",
+          "value": "Sunny Sample",
+          "timestamp": 0
+        },
+        "Bio": {
+          "href": "",
+          "value": "Made-up account for the demo \u00e2\u0098\u0080\u00ef\u00b8\u008f\nPhotos are procedurally generated \u00f0\u009f\u008e\u00a8",
+          "timestamp": 0
+        },
+        "Pronouns": {
+          "href": "",
+          "value": "they, them",
+          "timestamp": 0
+        },
+        "Private Account": {
+          "href": "",
+          "value": "False",
+          "timestamp": 0
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "meta-export-viewer",
+  "private": true,
+  "type": "module",
+  "workspaces": ["packages/*", "apps/*"],
+  "scripts": {
+    "dev:instagram": "npm run dev -w apps/instagram",
+    "dev:facebook": "echo 'Facebook viewer not built yet - see ROADMAP.md' && exit 1",
+    "fixture": "node fixtures/generate-instagram.ts",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "~5.9.3",
+    "vitest": "^5.1.0",
+    "vue-tsc": "^3.1.0"
+  }
+}

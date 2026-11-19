@@ -1,0 +1,7 @@
+node_modules/
+exports/*
+!exports/README.md
+dist/
+*.zip
+.DS_Store
+*.log

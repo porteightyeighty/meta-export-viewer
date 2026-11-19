@@ -1,0 +1,23 @@
+{
+  "name": "@mev/core",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./node": "./src/node/index.ts",
+    "./client": "./src/client/index.ts",
+    "./client/*": "./src/client/*",
+    "./types": "./src/types/meta.ts"
+  },
+  "scripts": {
+    "typecheck": "vue-tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "sirv": "^3.0.2"
+  },
+  "peerDependencies": {
+    "vite": "^8.0.0",
+    "vue": "^3.5.0",
+    "vue-router": "^5.0.0"
+  }
+}

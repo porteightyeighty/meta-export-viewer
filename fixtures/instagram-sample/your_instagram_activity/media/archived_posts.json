@@ -1,0 +1,37 @@
+{
+  "ig_archived_post_media": [
+    {
+      "media": [
+        {
+          "uri": "media/archived_posts/202408/17900000000001018.png",
+          "creation_timestamp": 1724658074,
+          "title": "Old haircut era",
+          "media_metadata": {
+            "photo_metadata": {
+              "exif_data": [
+                {
+                  "latitude": 51.5,
+                  "longitude": -0.12
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "media": [
+        {
+          "uri": "media/archived_posts/202407/17900000000001019.png",
+          "creation_timestamp": 1721217629,
+          "title": "Not my best angle \u00f0\u009f\u0099\u0088",
+          "media_metadata": {
+            "camera_metadata": {
+              "has_camera_metadata": false
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
