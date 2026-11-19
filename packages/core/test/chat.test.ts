@@ -39,6 +39,8 @@ describe("search + preview", () => {
     expect(highlight("abab", "b").filter((s) => s.hit)).toHaveLength(2);
     expect(fold("ÉCOLE")).toBe("ecole");
     expect(snippet("x".repeat(100) + "needle" + "y".repeat(100), "needle", 5)).toBe("…xxxxxneedleyyyyy…");
+    // "…" folds to three chars; the excerpt must still contain the match.
+    expect(snippet("wait… ".repeat(30) + "banana" + "z".repeat(100), "banana", 5)).toContain("banana");
   });
 
   it("previews", () => {

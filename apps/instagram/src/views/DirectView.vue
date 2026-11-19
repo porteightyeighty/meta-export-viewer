@@ -99,7 +99,8 @@ const messageHits = computed(() => {
       </SearchableList>
     </section>
     <section class="ig-dm-main">
-      <RouterView :key="openId" />
+      <!-- fullPath, not id: a new ?m= search hit in the open chat must re-run the jump-to-message. -->
+      <RouterView :key="route.fullPath" />
     </section>
   </div>
 </template>
