@@ -1,0 +1,3 @@
+#!/bin/sh
+# Blocks commits containing personal data. See scripts/leak-check.mjs.
+exec node "$(git rev-parse --show-toplevel)/scripts/leak-check.mjs"
