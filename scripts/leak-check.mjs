@@ -21,6 +21,7 @@
 import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
+import { fixString } from "../packages/core/src/node/fixMojibake.ts";
 
 const args = new Set(process.argv.slice(2));
 const mode = args.has("--all") ? "all" : args.has("--generic") ? "generic" : "staged";
@@ -71,10 +72,14 @@ if (mode !== "generic") {
   const idSet = new Set(ids);
   const words = needles.filter((n) => !idSet.has(n));
   for (const f of files) {
-    const text = read(f).toString("utf8").toLowerCase();
+    // The path counts too: a file can be named after you.
+    const text = (f + "\n" + read(f).toString("utf8")).toLowerCase();
     const squashed = text.replace(/\s+/g, "");
     words.forEach((w, i) => {
-      if (text.includes(w) || squashed.includes(w.replace(/\s+/g, ""))) problems.push(`${f}: matches personal identifier #${i + 1}`);
+      // Squashed text catches "First Last" written "FirstLast"; for one-word needles it only adds
+      // false hits across word gaps ("Theo" in "the old").
+      const multiWord = /\s/.test(w);
+      if (text.includes(w) || (multiWord && squashed.includes(w.replace(/\s+/g, "")))) problems.push(`${f}: matches personal identifier #${i + 1}`);
     });
     if (idSet.size) for (const m of text.matchAll(/\d{12,}/g)) if (idSet.has(m[0])) { problems.push(`${f}: contains a real media ID from your export`); break; }
   }
@@ -96,20 +101,12 @@ function deriveFromExport(dir) {
       return undefined;
     }
   };
-  const fix = (s) => {
-    try {
-      const d = Buffer.from(s, "latin1").toString("utf8");
-      return d.includes("�") ? s : d;
-    } catch {
-      return s;
-    }
-  };
   // Instagram profile
   const pi = tryJson(path.join(dir, "personal_information/personal_information/personal_information.json"));
   const sm = pi?.profile_user?.[0]?.string_map_data ?? {};
   for (const k of ["Username", "Name", "Email", "Phone Number"]) {
     const v = sm[k]?.value;
-    if (v) out.push(fix(v));
+    if (v) out.push(fixString(v));
   }
   if (sm["Phone Number"]?.value) out.push(sm["Phone Number"].value.replace(/[^\d+]/g, ""));
   // Folder name usually embeds the username: instagram-<user>-YYYY-MM-DD-xxxx
