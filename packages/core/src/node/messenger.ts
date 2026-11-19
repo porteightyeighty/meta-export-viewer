@@ -4,6 +4,7 @@
  * this schema; the caller supplies how media URIs map to served files.
  */
 import type { ExportDir } from "./exportFs.ts";
+import { webUrl } from "./flatten.ts";
 import type { ChatMessage, MediaItem, Reaction, Share, ShareKind, Thread, ThreadBox } from "../types/meta.ts";
 
 interface RawMediaRef {
@@ -164,7 +165,7 @@ function hostOf(url: string) {
 }
 
 export function toShare(s: NonNullable<RawMessage["share"]>): Share {
-  const url = s.link || undefined;
+  const url = webUrl(s.link);
   const host = url ? hostOf(url) : undefined;
   let kind: ShareKind = "link";
   if (s.profile_share_username) kind = "profile";

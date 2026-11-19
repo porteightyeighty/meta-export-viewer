@@ -2,7 +2,7 @@
 /** Two-pane Direct inbox: searchable thread list on the left, the open chat on the right. */
 import { computed, ref, watch } from "vue";
 import { useRoute } from "vue-router";
-import { SearchableList, fetchData, highlight, longDate, matches, shortAgo, snippet, useData } from "@mev/core/client";
+import { SearchableList, fetchData, fold, highlight, longDate, shortAgo, snippet, useData } from "@mev/core/client";
 import type { ThreadBox, ThreadSummary } from "@mev/core/types";
 import type { Profile } from "../../build/index.ts";
 import type { MessageIndexRow } from "../../build/direct.ts";
@@ -32,10 +32,13 @@ const MIN_CHARS = 3, MAX_HITS = 50;
 watch(query, (q) => {
   if (q.trim().length >= MIN_CHARS && !index.value) fetchData<MessageIndexRow[]>("messageIndex").then((d) => (index.value = d));
 });
+// Fold once per index load, not once per message per keystroke.
+const folded = computed(() => index.value?.map((r) => fold(r[2])));
 const messageHits = computed(() => {
-  const q = query.value.trim();
-  if (q.length < MIN_CHARS || !index.value) return { rows: [], total: 0 };
-  const all = index.value.filter((r) => matches(r[2], q)).sort((a, b) => b[3] - a[3]);
+  const q = fold(query.value.trim());
+  if (q.length < MIN_CHARS || !index.value || !folded.value) return { rows: [], total: 0 };
+  const f = folded.value;
+  const all = index.value.filter((_, i) => f[i].includes(q)).sort((a, b) => b[3] - a[3]);
   return { rows: all.slice(0, MAX_HITS), total: all.length };
 });
 </script>
@@ -99,7 +102,8 @@ const messageHits = computed(() => {
       </SearchableList>
     </section>
     <section class="ig-dm-main">
-      <RouterView :key="openId" />
+      <!-- fullPath, not id: a new ?m= search hit in the open chat must re-run the jump-to-message. -->
+      <RouterView :key="route.fullPath" />
     </section>
   </div>
 </template>

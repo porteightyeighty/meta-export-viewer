@@ -48,9 +48,12 @@ export function highlight(text: string, query: string): Segment[] {
 
 /** Short excerpt around the first match, for search result lists. */
 export function snippet(text: string, query: string, radius = 40) {
-  const at = fold(text).indexOf(fold(query.trim()));
+  const q = fold(query.trim());
+  const { out, map } = foldWithMap(text);
+  const at = q ? out.indexOf(q) : -1;
   if (at < 0 || text.length <= radius * 2) return text;
-  const start = Math.max(0, at - radius);
-  const end = Math.min(text.length, at + query.length + radius);
+  // Folding can change length ("…" → "..."), so map back to original positions.
+  const start = Math.max(0, map[at] - radius);
+  const end = Math.min(text.length, map[at + q.length] + radius);
   return (start ? "…" : "") + text.slice(start, end).trim() + (end < text.length ? "…" : "");
 }

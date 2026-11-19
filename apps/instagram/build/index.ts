@@ -198,8 +198,11 @@ function loadPostDetails(ex: ExportDir) {
   }
 
   let hashed = false;
+  // Hashing reads the whole file, and toMedia + toPost ask for the same file, so remember answers.
+  const seen = new Map<string, PostDetails | undefined>();
   const lookupByContent = (rel: string | undefined) => {
     if (!rel || !entries.length) return undefined;
+    if (seen.has(rel)) return seen.get(rel);
     if (!hashed) {
       hashed = true;
       for (const [uri, d] of byUri) {
@@ -207,7 +210,9 @@ function loadPostDetails(ex: ExportDir) {
         if (r) byHash.set(ex.hash(r), d);
       }
     }
-    return byHash.get(ex.hash(rel));
+    const hit = byHash.get(ex.hash(rel));
+    seen.set(rel, hit);
+    return hit;
   };
   return { entries, byUri, lookupByContent };
 }
