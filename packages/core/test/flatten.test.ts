@@ -10,9 +10,14 @@ describe("flatten helpers", () => {
   });
 
   it("reads string_list_data with value, title or href fallback", () => {
-    expect(fromStringList({ string_list_data: [{ value: "a", href: "h", timestamp: 1 }] })).toEqual({ value: "a", href: "h", timestamp: 1000 });
+    expect(fromStringList({ string_list_data: [{ value: "a", href: "https://h.example", timestamp: 1 }] })).toEqual({ value: "a", href: "https://h.example", timestamp: 1000 });
     expect(fromStringList({ title: "b", string_list_data: [{ href: "x" }] }).value).toBe("b");
     expect(fromStringList({ string_list_data: [{ href: "https://example.com/_u/c/" }] }).value).toBe("c");
+  });
+
+  it("drops non-http hrefs", () => {
+    expect(fromStringList({ string_list_data: [{ href: "javascript:x", value: "v" }] }).href).toBeUndefined();
+    expect(fromStringList({ string_list_data: [{ href: "https://instagram.com/v" }] }).href).toBe("https://instagram.com/v");
   });
 
   it("reads string_map_data and drops empties", () => {

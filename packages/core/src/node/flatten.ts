@@ -18,10 +18,13 @@ export function fromStringList(e: StringListEntry) {
   const d = e.string_list_data?.[0] ?? {};
   return {
     value: d.value || e.title || hrefTail(d.href) || "",
-    href: d.href,
+    href: webUrl(d.href),
     timestamp: toMs(d.timestamp),
   };
 }
+
+/** The URL if it is http(s), else undefined; export links end up in `href`, so no `javascript:`. */
+export const webUrl = (u: string | undefined) => (u && /^https?:\/\//i.test(u) ? u : undefined);
 
 function hrefTail(href?: string) {
   if (!href) return undefined;

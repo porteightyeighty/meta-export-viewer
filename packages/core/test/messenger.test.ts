@@ -67,6 +67,8 @@ describe("helpers", () => {
     expect(toShare({ link: "https://www.instagram.com/someone" }).kind).toBe("profile");
     expect(toShare({ link: "https://example.org/x" })).toMatchObject({ kind: "link", host: "example.org" });
     expect(toShare({ share_text: "hi" })).toMatchObject({ kind: "link", text: "hi" });
+    // Links become hrefs: only http(s) gets through.
+    expect(toShare({ link: "javascript:alert(1)" }).url).toBeUndefined();
   });
 
   it("inferMe prefers a known fallback and won't guess from one thread", () => {
