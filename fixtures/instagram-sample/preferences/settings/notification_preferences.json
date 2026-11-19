@@ -1,0 +1,44 @@
+{
+  "timestamp": 1758786663,
+  "media": [],
+  "label_values": [
+    {
+      "label": "Email notifications",
+      "value": "Off"
+    },
+    {
+      "title": "Push notifications",
+      "dict": [
+        {
+          "title": "Likes",
+          "dict": [
+            {
+              "label": "Setting",
+              "value": "From everyone"
+            }
+          ]
+        },
+        {
+          "title": "Comments",
+          "dict": [
+            {
+              "label": "Setting",
+              "value": "Off"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Quiet hours",
+      "vec": [
+        {
+          "value": "22:00"
+        },
+        {
+          "value": "07:00"
+        }
+      ]
+    }
+  ]
+}

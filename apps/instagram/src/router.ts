@@ -33,6 +33,7 @@ export const router = createRouter({
         { path: "t/:id", name: "thread", component: () => import("./views/ThreadView.vue"), props: true },
       ],
     },
+    { path: "/accounts/:file(.*)*", name: "accounts", component: () => import("./views/AccountsView.vue") },
     { path: "/:rest(.*)*", component: () => import("./views/ComingSoon.vue") },
   ],
   scrollBehavior: (to, from, saved) => saved ?? (to.matched[0]?.path === from.matched[0]?.path ? false : { top: 0 }),

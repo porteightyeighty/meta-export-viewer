@@ -1,0 +1,49 @@
+{
+  "account_history_login_history": [
+    {
+      "title": "2025-09-30T00:50:25.000Z",
+      "media_map_data": {},
+      "string_map_data": {
+        "IP address": {
+          "value": "192.0.2.10"
+        },
+        "Time": {
+          "timestamp": 1759275126
+        },
+        "User agent": {
+          "value": "SampleBrowser/1.0"
+        }
+      }
+    },
+    {
+      "title": "2025-09-21T08:50:56.000Z",
+      "media_map_data": {},
+      "string_map_data": {
+        "IP address": {
+          "value": "192.0.2.11"
+        },
+        "Time": {
+          "timestamp": 1758481676
+        },
+        "User agent": {
+          "value": "SampleBrowser/1.0"
+        }
+      }
+    },
+    {
+      "title": "2025-09-12T08:43:37.000Z",
+      "media_map_data": {},
+      "string_map_data": {
+        "IP address": {
+          "value": "192.0.2.12"
+        },
+        "Time": {
+          "timestamp": 1757639408
+        },
+        "User agent": {
+          "value": "SampleBrowser/1.0"
+        }
+      }
+    }
+  ]
+}

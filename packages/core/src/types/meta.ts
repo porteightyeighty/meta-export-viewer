@@ -100,3 +100,21 @@ export interface ThreadSummary {
   count: number;
   last?: { text: string; ts: number; fromMe: boolean };
 }
+
+/** One entry of any export file, normalised by `toRecords` (core/node/records.ts). */
+export interface Rec {
+  title?: string;
+  time?: number;
+  fields: RecField[];
+}
+
+export interface RecField {
+  label: string;
+  value?: string;
+  /** http(s) only */
+  href?: string;
+  time?: number;
+  /** /export/... urls of local media */
+  media?: string[];
+  items?: Rec[];
+}

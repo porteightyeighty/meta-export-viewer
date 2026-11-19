@@ -4,3 +4,4 @@ export * from "./exportFs.ts";
 export * from "./vitePlugin.ts";
 export * from "./mediaSize.ts";
 export * from "./messenger.ts";
+export * from "./records.ts";

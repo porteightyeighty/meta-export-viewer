@@ -66,6 +66,28 @@ describe("buildInstagram (fixture)", () => {
     expect((d.messageIndex as unknown[]).length).toBeGreaterThan(300);
   });
 
+  it("groups every other JSON file into Accounts Center sections", () => {
+    const sections = d.settings as { title: string; files: { id: string; title: string; count: number }[] }[];
+    const where = (id: string) => sections.find((s) => s.files.some((f) => f.id === id))?.title;
+    expect(where("connections/followers_and_following/blocked_profiles")).toBe("Connections");
+    expect(where("preferences/settings/notification_preferences")).toBe("Preferences");
+    expect(where("security_and_login_information/login_and_profile_creation/login_activity")).toBe("Password and security");
+    expect(where("personal_information/personal_information/personal_information")).toBe("Personal details");
+    expect(where("future_section/mystery_feature")).toBe("Other");
+    // Files with their own views stay out.
+    const ids = sections.flatMap((s) => s.files.map((f) => f.id));
+    expect(ids.some((id) => /messages\/|media\/posts|media\/stories|followers_1|following$/.test(id))).toBe(false);
+    for (const id of ids) {
+      const recs = (d as any)[`settings/${id}`] as { fields: unknown[] }[];
+      expect(recs.length, id).toBeGreaterThan(0);
+      expect(recs.every((r) => r.fields.length), id).toBe(true);
+    }
+    const login = (d as any)["settings/security_and_login_information/login_and_profile_creation/login_activity"];
+    expect(login).toHaveLength(3);
+    expect(login[0].fields.find((f: any) => f.label === "Time").time).toBeGreaterThan(0);
+    expect(sections.flatMap((s) => s.files).find((f) => f.id.endsWith("avatar_items"))?.title).toBe("Avatar items");
+  });
+
   it("tolerates a missing export without throwing", () => {
     const warnings: string[] = [];
     const empty = buildInstagram(new ExportDir(path.join(fixture, "nope"), { info() {}, warn: (m) => warnings.push(m) }));

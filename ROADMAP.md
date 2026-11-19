@@ -28,13 +28,15 @@ Direction for the project. Phases build on each other; shared pieces go in `pack
   (5 s for photos, video length for videos), Space to pause, plays oldest → newest
 - Highlights: not included in the JSON export (checked Nov 2026), so there is no highlights row
 
-## 4. Settings / Accounts Center
-- Personal details (email, phone, birthday: shown only here)
-- Security: login / logout activity, devices, last known location
-- Your activity: likes, comments, saved posts & collections, story interactions, search history
-- Ads: ad topics, advertisers using your info; apps & websites; notification preferences
-- Blocked, close friends, restricted, follow requests, recently unfollowed
-- Generic `SettingsShell` (core) with sidebar + sections; any unrecognised JSON is shown as a browsable table
+## 4. Settings / Accounts Center ✅
+- `/accounts`: every export file without its own view, in Accounts-Center-style sections (Personal details,
+  Password and security, Your activity, Connections, Ads, Preferences) with entry counts; anything unrecognised
+  lands in "Other", so no file is hidden
+- Each file opens as searchable cards: nested values indented, dates formatted, links open only on click,
+  local media as thumbnails. Contact details, logins and locations appear only here
+- Generic converter `core/src/node/records.ts` handles the four recurring shapes (`label_values`,
+  `string_map_data`, `string_list_data`, plain objects); renderer `core/src/client/components/RecordList.vue`
+- Not yet: custom views per file (e.g. a map of login locations)
 
 ## 5. Polish
 - Dark-mode toggle (currently follows the OS), mobile layout refinements, keyboard navigation throughout
@@ -52,4 +54,4 @@ Direction for the project. Phases build on each other; shared pieces go in `pack
 | Export folder reading, media-size sniffing, Vite plugin | Followers / following | Friends list |
 | Lightbox, Carousel, MediaView, SearchableList | Reels tab | Videos |
 | Messenger thread loader, chat layout + search helpers | Direct UI and styling | Messenger UI |
-| SettingsShell (phase 4) | Accounts Center sections | Settings & privacy sections |
+| Export file → records converter, RecordList | Accounts Center sidebar | Settings & privacy sections |
