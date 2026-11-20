@@ -32,9 +32,12 @@ const aspect = computed(() => {
   return Math.min(Math.max(m.width / m.height, 0.8), 1.91);
 });
 
-/** Split caption into text / #hashtag / @mention parts for colouring. */
+/** Split caption into text and #hashtag / @mention parts; those link to search (#tag as typed, @name as the name). */
 const captionParts = computed(() =>
-  (post.value?.caption ?? "").split(/([#@][\p{L}\p{N}_.]+)/u).map((t) => ({ t, link: /^[#@]/.test(t) })),
+  (post.value?.caption ?? "")
+    .split(/([#@][\p{L}\p{N}_.]+)/u)
+    // split() with a capture group puts the matches at odd indexes
+    .map((t, i) => ({ t, q: i % 2 === 0 ? undefined : t.startsWith("#") ? t : t.slice(1) })),
 );
 const mapUrl = computed(() => {
   const l = post.value?.location;
@@ -72,7 +75,7 @@ const mapUrl = computed(() => {
           <div v-if="post.caption" class="ig-caption">
             <Avatar :src="profile?.avatar" :label="profile?.username" :size="32" />
             <div>
-              <p><b>{{ profile?.username }}</b>&nbsp;<template v-for="(c, k) in captionParts" :key="k"><span v-if="c.link" class="ig-link">{{ c.t }}</span><template v-else>{{ c.t }}</template></template></p>
+              <p><b>{{ profile?.username }}</b>&nbsp;<template v-for="(c, k) in captionParts" :key="k"><RouterLink v-if="c.q" class="ig-link" :to="{ name: 'search', query: { q: c.q } }">{{ c.t }}</RouterLink><template v-else>{{ c.t }}</template></template></p>
               <time class="ig-muted">{{ shortAgo(post.timestamp) }}</time>
             </div>
           </div>

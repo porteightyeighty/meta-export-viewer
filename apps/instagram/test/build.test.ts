@@ -90,6 +90,15 @@ describe("buildInstagram (fixture)", () => {
     expect(sections.flatMap((s) => s.files).find((f) => f.id.endsWith("avatar_items"))?.title).toBe("Avatar items");
   });
 
+  it("indexes one searchable row per Accounts Center record", () => {
+    const index = d.recordIndex as [string, string][];
+    const files = (d.settings as { files: { id: string; count: number }[] }[]).flatMap((s) => s.files);
+    expect(index).toHaveLength(files.reduce((n, f) => n + f.count, 0));
+    const logins = index.filter(([id]) => id.endsWith("login_activity"));
+    expect(logins).toHaveLength(3);
+    expect(logins.every(([, text]) => text.length > 0)).toBe(true);
+  });
+
   it("tolerates a missing export without throwing", () => {
     const warnings: string[] = [];
     const empty = buildInstagram(fsExport(path.join(fixture, "nope"), { info() {}, warn: (m) => warnings.push(m) }));

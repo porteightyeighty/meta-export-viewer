@@ -57,11 +57,16 @@ Direction for the project. Phases build on each other; shared pieces go in `pack
   cache-first service worker so the app opens offline; hash routing, so any static host works
 - Not done: .zip input, drag-and-drop, a demo button on the hosted site, remembering the export between visits
 
-## 7. Search
-- Search item in the nav rail opens a panel like Instagram's: one box that searches post captions, hashtags,
-  places, followers / following, chat names, message text and Accounts Center records, grouped by type
-- Each hit links to where it lives (post viewer, thread at the message, record card). The export has no
-  search history, so there is no "Recent" list
+## 7. Search ✅
+- `/search` (Search in the nav rail and the phone bar): one box, results grouped as Accounts (followers and
+  following merged, with Following / Follows you), Posts (posts, archived posts and stories by caption, #hashtag
+  or place), Chats, Messages (newest first, snippet, opens the chat at that message) and Your information
+  (Accounts Center files by name, or by their records' text, opening the file pre-filtered)
+- Query kept in the URL (`?q=`); each group shows a few hits with "Show all"; ↑/↓ through results
+- #hashtags and @mentions in captions link to search
+- Message and record indexes load only on the first 3+ character query (`core/src/client/search.ts`,
+  shared with Direct); `recordIndex` dataset built next to the Accounts Center files
+- The export has no search history, so there is no "Recent" list
 
 ## 8. Activity (Notifications slot)
 - The export holds only what you did, not notifications you received, so the heart item becomes "Your activity":

@@ -14,6 +14,13 @@ const file = computed(() => sections.value?.flatMap((s) => s.files).find((f) => 
 
 const records = ref<Rec[]>();
 const error = ref<string>();
+/** Filter text: empty for each file, unless a search link opened it with `?q=`. */
+const query = ref("");
+watch(
+  () => [fileId.value, route.query.q] as const,
+  ([, q]) => (query.value = typeof q === "string" ? q : ""),
+  { immediate: true },
+);
 watch(
   fileId,
   (id) => {
@@ -51,7 +58,7 @@ watch(
         <p v-if="error" class="ig-empty">{{ error }}</p>
         <p v-else-if="!records" class="ig-empty">Loading…</p>
         <p v-else-if="!records.length" class="ig-empty ig-muted">This file is empty.</p>
-        <RecordList v-else :key="fileId" :records="records" />
+        <RecordList v-else :key="fileId" v-model:query="query" :records="records" />
       </template>
       <div v-else class="ig-empty">
         <Icon name="settings" :size="48" />

@@ -19,12 +19,14 @@ entirely on your own machine: run it locally, or open a hosted copy that reads y
 - Stories archive by month, with a full-screen viewer (progress bars, tap/arrow navigation, auto-advance)
 - Accounts Center: every other file in your export (personal details, login activity, likes, comments,
   story interactions, blocked, close friends, ads, preferences…), grouped and searchable
+- Search across everything from one box: people, posts (caption, #hashtag, place), chats, message text and
+  Accounts Center files and records; tap a #hashtag or @mention in a caption to search for it
 - Light / dark / follow-the-OS theme (Appearance in the sidebar), phone-sized layout
 - Keyboard friendly: Tab through everything, Enter opens, Esc closes, ←/→ between posts and stories,
   Space pauses a story, ↑/↓ moves through search results, Enter / Shift+Enter steps through in-chat matches
 - Works as a static website too: pick your export folder and it's read in your browser, never uploaded;
   works offline after the first visit
-- Coming next: search across everything, an activity timeline, a reels player, then a Facebook viewer ([ROADMAP.md](ROADMAP.md))
+- Coming next: an activity timeline, a reels player, then a Facebook viewer ([ROADMAP.md](ROADMAP.md))
 
 > **Not affiliated with, endorsed by, or connected to Meta Platforms, Inc.** Instagram and
 > Facebook are trademarks of Meta. This project uses no Meta code or assets; icons are original.

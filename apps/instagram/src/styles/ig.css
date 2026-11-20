@@ -200,6 +200,18 @@ button.ig-rail-item { border: 0; background: none; cursor: pointer; text-align: 
 .ig-chip { font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 8px; background: var(--bg-btn); }
 .mev-search-empty { text-align: center; color: var(--muted); }
 
+/* ── Search ───────────────────────────────────────────────────────── */
+.ig-search-page { max-width: 640px; margin: 0 auto; padding: 32px 16px 48px; }
+.ig-search-page > h2 { font-size: 24px; margin: 0 0 16px; }
+.ig-search input { width: 100%; height: 40px; border: 0; border-radius: 8px; padding: 0 16px; background: var(--bg-btn); color: var(--text); font: inherit; }
+.ig-search .mev-search-results { overflow: visible; }
+.ig-search .mev-search-empty { margin: 24px 0; }
+.ig-search-section { font-size: 16px; margin: 24px 0 8px; display: flex; gap: 8px; align-items: baseline; }
+.ig-search-section .ig-muted { font-size: 12px; font-weight: 400; }
+.ig-search-page .ig-person, .ig-search-page .ig-dm-row { padding: 8px 12px; border-radius: 8px; }
+.ig-search-more { border: 0; background: none; color: var(--link); font-weight: 600; padding: 8px 12px; cursor: pointer; }
+.ig-search-page .ig-grid { margin-top: 4px; }
+
 /* ── Direct ─────────────────────────────────────────────────────────── */
 @media (min-width: 768px) {
   .ig-app.compact { --rail-w: 72px; }

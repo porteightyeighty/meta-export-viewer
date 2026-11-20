@@ -9,7 +9,7 @@ const { theme, cycle } = useTheme();
 const themeIcon = { auto: "auto", light: "sun", dark: "moon" } as const;
 const items = [
   { to: "/", icon: "home", label: "Home", soon: true },
-  { to: "/search", icon: "search", label: "Search", soon: true },
+  { to: "/search", icon: "search", label: "Search" },
   { to: "/explore", icon: "explore", label: "Explore", soon: true },
   { to: "/reels", icon: "reels", label: "Reels", soon: true },
   { to: "/direct", icon: "messages", label: "Messages" },
