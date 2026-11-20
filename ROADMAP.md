@@ -48,7 +48,25 @@ Direction for the project. Phases build on each other; shared pieces go in `pack
 - README screenshots from the demo fixture (`docs/screenshots/`, the only media allowed outside `fixtures/`)
 - Not done: swipe gestures, shortcut keys beyond the above
 
-## 6. Facebook
+## 6. Search
+- Search item in the nav rail opens a panel like Instagram's: one box that searches post captions, hashtags,
+  places, followers / following, chat names, message text and Accounts Center records, grouped by type
+- Each hit links to where it lives (post viewer, thread at the message, record card). The export has no
+  search history, so there is no "Recent" list
+
+## 7. Activity (Notifications slot)
+- The export holds only what you did, not notifications you received, so the heart item becomes "Your activity":
+  likes (posts, comments, story likes), comments (posts, reels) and story interactions (polls, quizzes,
+  questions, sliders, countdowns) as one timeline, filterable by type and grouped by date
+- These files move out of Accounts Center "Your activity" once they have this view
+
+## 8. Reels + nav cleanup
+- `/reels`: full-screen vertical player of your own video posts (same filter as the profile REELS tab),
+  ↑/↓ or scroll-snap between them, autoplay muted with a sound toggle
+- Remove Home and Explore: both are feeds Instagram picks for you, and the export has none of that data
+- After this, no nav item is a placeholder, and `/soon` can go
+
+## 9. Facebook
 - Survey the Facebook export; `apps/facebook` with the Facebook look (top bar, feed/timeline, Friends,
   Messenger, Settings & privacy), reusing the core loaders and components
 

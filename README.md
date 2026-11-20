@@ -22,7 +22,7 @@ entirely on your own machine. A Facebook viewer is planned and will share the sa
 - Light / dark / follow-the-OS theme (Appearance in the sidebar), phone-sized layout
 - Keyboard friendly: Tab through everything, Enter opens, Esc closes, ←/→ between posts and stories,
   Space pauses a story, ↑/↓ moves through search results, Enter / Shift+Enter steps through in-chat matches
-- Coming next: a Facebook viewer ([ROADMAP.md](ROADMAP.md))
+- Coming next: search across everything, an activity timeline, a reels player, then a Facebook viewer ([ROADMAP.md](ROADMAP.md))
 
 > **Not affiliated with, endorsed by, or connected to Meta Platforms, Inc.** Instagram and
 > Facebook are trademarks of Meta. This project uses no Meta code or assets; icons are original.
