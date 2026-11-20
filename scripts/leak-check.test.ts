@@ -51,11 +51,12 @@ describe("leak-check (staged)", () => {
   });
 
   it("blocks real media IDs, exports/ files and stray media", () => {
-    const r = check({ "notes.md": `see ${MEDIA_ID}\n`, "exports/instagram/x.json": "{}", "img/p.jpg": "" });
+    const r = check({ "notes.md": `see ${MEDIA_ID}\n`, "exports/instagram/x.json": "{}", "img/p.jpg": "", "docs/screenshots/s.png": "" });
     expect(r.code).toBe(1);
     expect(r.out).toContain("notes.md: contains a real media ID");
     expect(r.out).toContain("exports/instagram/x.json: files under exports/");
     expect(r.out).toContain("img/p.jpg: media file outside fixtures/");
+    expect(r.out).not.toContain("s.png");
     expect(r.out).not.toContain(MEDIA_ID);
   });
 

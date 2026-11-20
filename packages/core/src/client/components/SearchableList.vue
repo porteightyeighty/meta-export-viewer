@@ -16,6 +16,16 @@ const filtered = computed(() => {
   return props.items.filter((it) => props.keys(it).some((k) => k && norm(k).includes(q)));
 });
 const visible = computed(() => filtered.value.slice(0, shown.value));
+const root = ref<HTMLElement>();
+/** ↑/↓ move focus between the input and the result links/buttons. */
+function onArrow(e: KeyboardEvent) {
+  const els = [...root.value!.querySelectorAll<HTMLElement>(".mev-search-box input, .mev-search-results :is(a[href], button)")];
+  const at = els.indexOf(document.activeElement as HTMLElement);
+  const to = els[at + (e.key === "ArrowDown" ? 1 : -1)];
+  if (at < 0 || !to) return;
+  e.preventDefault();
+  to.focus();
+}
 function onScroll(e: Event) {
   const el = e.target as HTMLElement;
   if (el.scrollTop + el.clientHeight > el.scrollHeight - 200) shown.value += props.limit;
@@ -23,7 +33,7 @@ function onScroll(e: Event) {
 </script>
 
 <template>
-  <div class="mev-search">
+  <div ref="root" class="mev-search" @keydown.down="onArrow" @keydown.up="onArrow">
     <div class="mev-search-box">
       <slot name="input" :query="query">
         <input v-model="query" type="search" :placeholder="placeholder" autocomplete="off" spellcheck="false" />

@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="light dark" />
+    <!-- set the saved theme before first paint (see core/src/client/theme.ts) -->
+    <script>try { var t = localStorage.getItem("mev-theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch {}</script>
     <title>Instagram export viewer</title>
   </head>
   <body>

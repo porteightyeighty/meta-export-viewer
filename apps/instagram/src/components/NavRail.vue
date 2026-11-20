@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { useData } from "@mev/core/client";
+import { useData, useTheme } from "@mev/core/client";
 import Icon from "./Icon.vue";
 import Avatar from "./Avatar.vue";
 import type { Profile } from "../../build/index.ts";
 
 const { data: profile } = useData<Profile>("profile");
+const { theme, cycle } = useTheme();
+const themeIcon = { auto: "auto", light: "sun", dark: "moon" } as const;
 const items = [
   { to: "/", icon: "home", label: "Home", soon: true },
   { to: "/search", icon: "search", label: "Search", soon: true },
@@ -20,15 +22,20 @@ const items = [
   <nav class="ig-rail">
     <RouterLink to="/" class="ig-rail-brand"><span class="ig-wordmark">Insta Archive</span><Icon class="ig-rail-brand-icon" name="create" /></RouterLink>
     <div class="ig-rail-items">
-      <RouterLink v-for="it in items" :key="it.label" :to="it.soon ? `/soon${it.to}` : it.to" class="ig-rail-item" :title="it.label">
+      <RouterLink v-for="it in items" :key="it.label" :to="it.soon ? `/soon${it.to}` : it.to" class="ig-rail-item" :class="{ soon: it.soon }" :title="it.label">
         <Icon :name="it.icon" /><span class="ig-rail-label">{{ it.label }}</span>
       </RouterLink>
       <RouterLink to="/" class="ig-rail-item ig-rail-profile" title="Profile" exact-active-class="active">
         <Avatar :src="profile?.avatar" :label="profile?.username" :size="24" /><span class="ig-rail-label">Profile</span>
       </RouterLink>
     </div>
-    <RouterLink to="/accounts" class="ig-rail-item ig-rail-more" title="More">
-      <Icon name="menu" /><span class="ig-rail-label">More</span>
-    </RouterLink>
+    <div class="ig-rail-foot">
+      <button class="ig-rail-item" :title="`Appearance: ${theme[0].toUpperCase() + theme.slice(1)}`" :aria-label="`Appearance: ${theme}`" @click="cycle">
+        <Icon :name="themeIcon[theme]" :filled="theme === 'light'" /><span class="ig-rail-label">Appearance</span>
+      </button>
+      <RouterLink to="/accounts" class="ig-rail-item ig-rail-more" title="More">
+        <Icon name="menu" /><span class="ig-rail-label">More</span>
+      </RouterLink>
+    </div>
   </nav>
 </template>

@@ -3,6 +3,14 @@
 Browse your own **Instagram data export** in a familiar, logged-in-style interface,
 entirely on your own machine. A Facebook viewer is planned and will share the same core.
 
+| | |
+| --- | --- |
+| ![Profile grid](docs/screenshots/profile.png) | ![Post viewer](docs/screenshots/post.png) |
+| ![Direct messages](docs/screenshots/direct.png) | ![Direct messages, dark](docs/screenshots/dark.png) |
+| ![Story viewer](docs/screenshots/story.png) | ![Accounts Center](docs/screenshots/accounts.png) |
+
+<sub>Screenshots use the built-in demo account; every person and image in them is made up.</sub>
+
 - Profile with post grid, carousels, video, captions, places
 - Followers / following with search and "follows you" markers
 - Archived posts
@@ -11,7 +19,10 @@ entirely on your own machine. A Facebook viewer is planned and will share the sa
 - Stories archive by month, with a full-screen viewer (progress bars, tap/arrow navigation, auto-advance)
 - Accounts Center: every other file in your export (personal details, login activity, likes, comments,
   story interactions, blocked, close friends, ads, preferences…), grouped and searchable
-- Coming next: polish and a Facebook viewer ([ROADMAP.md](ROADMAP.md))
+- Light / dark / follow-the-OS theme (Appearance in the sidebar), phone-sized layout
+- Keyboard friendly: Tab through everything, Enter opens, Esc closes, ←/→ between posts and stories,
+  Space pauses a story, ↑/↓ moves through search results, Enter / Shift+Enter steps through in-chat matches
+- Coming next: a Facebook viewer ([ROADMAP.md](ROADMAP.md))
 
 > **Not affiliated with, endorsed by, or connected to Meta Platforms, Inc.** Instagram and
 > Facebook are trademarks of Meta. This project uses no Meta code or assets; icons are original.
