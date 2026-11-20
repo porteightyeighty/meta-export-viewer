@@ -1,8 +1,7 @@
 /**
  * Instagram export → datasets for the viewer. Runs in Node inside the Vite
- * plugin. Tolerates missing sections and both known post formats.
+ * plugin, and in a Web Worker on the static site. Tolerates missing sections and both known post formats.
  */
-import path from "node:path";
 import {
   ExportDir,
   fromStringList,
@@ -14,7 +13,8 @@ import {
   toMs,
   type LVItem,
   type StringListEntry,
-} from "@mev/core/node";
+  basename,
+} from "@mev/core/export";
 import type { MediaItem, Person, Post } from "@mev/core/types";
 import { makeResolver, mediaUrl, VIDEO } from "./media.ts";
 import { buildDirect } from "./direct.ts";
@@ -79,7 +79,7 @@ export function buildInstagram(ex: ExportDir) {
     const exif = p.media.flatMap((m) => m.media_metadata?.photo_metadata?.exif_data ?? []).find((e) => e.latitude && e.longitude);
     const location = details?.location ?? (exif ? { lat: exif.latitude!, lng: exif.longitude! } : undefined);
     return {
-      id: idPrefix + path.basename(first.uri).replace(/\.\w+$/, ""),
+      id: idPrefix + basename(first.uri).replace(/\.\w+$/, ""),
       timestamp: toMs(p.creation_timestamp ?? first.creation_timestamp) ?? 0,
       caption,
       media,
@@ -117,7 +117,7 @@ export function buildInstagram(ex: ExportDir) {
       const size = ex.size(rel);
       const timestamp = toMs(m.creation_timestamp) ?? 0;
       const media: MediaItem = { src: mediaUrl(rel), kind: VIDEO.test(rel) ? "video" : "image", takenAt: timestamp, width: size?.width, height: size?.height };
-      return [{ id: "s" + path.basename(m.uri).replace(/\.\w+$/, ""), timestamp, caption: (m.title ?? "").trim(), media: [media] }];
+      return [{ id: "s" + basename(m.uri).replace(/\.\w+$/, ""), timestamp, caption: (m.title ?? "").trim(), media: [media] }];
     })
     .sort(newestFirst);
 

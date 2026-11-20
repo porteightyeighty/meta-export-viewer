@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { imageSize } from "../src/node/mediaSize.ts";
+import { imageSize } from "../src/export/mediaSize.ts";
 
 describe("imageSize", () => {
   it("reads PNG", () => {

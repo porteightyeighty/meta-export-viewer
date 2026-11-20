@@ -1,7 +1,7 @@
 # meta-export-viewer
 
 Browse your own **Instagram data export** in a familiar, logged-in-style interface,
-entirely on your own machine. A Facebook viewer is planned and will share the same core.
+entirely on your own machine: run it locally, or open a hosted copy that reads your export inside your browser. A Facebook viewer is planned and will share the same core.
 
 | | |
 | --- | --- |
@@ -22,7 +22,9 @@ entirely on your own machine. A Facebook viewer is planned and will share the sa
 - Light / dark / follow-the-OS theme (Appearance in the sidebar), phone-sized layout
 - Keyboard friendly: Tab through everything, Enter opens, Esc closes, ←/→ between posts and stories,
   Space pauses a story, ↑/↓ moves through search results, Enter / Shift+Enter steps through in-chat matches
-- Coming next: a Facebook viewer ([ROADMAP.md](ROADMAP.md))
+- Works as a static website too: pick your export folder and it's read in your browser, never uploaded;
+  works offline after the first visit
+- Coming next: search across everything, an activity timeline, a reels player, then a Facebook viewer ([ROADMAP.md](ROADMAP.md))
 
 > **Not affiliated with, endorsed by, or connected to Meta Platforms, Inc.** Instagram and
 > Facebook are trademarks of Meta. This project uses no Meta code or assets; icons are original.
@@ -31,7 +33,10 @@ entirely on your own machine. A Facebook viewer is planned and will share the sa
 
 Your export contains private messages, contact details and login history. This viewer:
 
-- runs only on `127.0.0.1` (not reachable from your network),
+- runs only on `127.0.0.1` (not reachable from your network) when you run it locally,
+- as a website, reads the folder you pick inside your browser tab; the files are never uploaded. A
+  Content-Security-Policy stops the page from sending data to any other server, and you can confirm that
+  in your browser's developer tools (Network tab),
 - reads your export folder **read-only** and never copies or uploads it,
 - has no analytics and makes no external requests on its own. Links (a post's OpenStreetMap location, shared
   posts and links in messages) only open when you click them, and images that exist only on a remote server
@@ -67,19 +72,35 @@ npm run dev:instagram
 Open <http://127.0.0.1:5173>. With no export configured, it shows a built-in **demo account**
 (`fixtures/instagram-sample/`, invented people and generated images).
 
+### Or host it as a static site
+
+```sh
+npm run build:instagram    # → apps/instagram/dist/
+```
+
+`dist/` is plain static files: serve it from any static host. Visitors pick their unzipped export folder,
+and a Web Worker parses it in their browser; media is shown straight from their disk (`blob:` URLs). Pages
+use hash URLs (`/#/direct`), so the host needs no rewrite rules. A service worker caches the app, so after
+the first visit it opens without a connection. Picking a folder needs a desktop browser (most phone
+browsers can't pick folders).
+
+To try the build locally: `npx vite preview` in `apps/instagram`, then pick `fixtures/instagram-sample/`.
+
 ## How it works
 
 ```
 packages/core/      shared by every platform
-  src/node/         export reading: mojibake repair, schema helpers, media-size sniffing,
-                    Messenger-style thread loader (shared with Facebook), any-file → records converter,
-                    Vite plugin that builds datasets in Node and serves /api/data/*.json + /export/*
+  src/export/       export reading, runs in Node and in the browser: mojibake repair, schema helpers,
+                    media-size sniffing, Messenger-style thread loader (shared with Facebook),
+                    any-file → records converter, ExportDir over the file system or picked Files
+  src/node/         Vite plugins: dev server that builds datasets in Node and serves /api/data/*.json +
+                    /export/*; static build (Content-Security-Policy + offline service worker)
   src/client/       Vue building blocks: Lightbox, Carousel, SearchableList, MediaView, useData, date formats,
-                    RecordList, chat layout + accent-insensitive search helpers
+                    RecordList, ExportPicker, chat layout + accent-insensitive search helpers
 apps/instagram/
   build/            Instagram export → profile / posts / archived / stories / followers / following /
                     threads / settings
-  src/              the Instagram-style UI (Vue 3 + vue-router)
+  src/              the Instagram-style UI (Vue 3 + vue-router); src/static/ reads a picked folder
 fixtures/           synthetic sample export + its generator (npm run fixture)
 ```
 

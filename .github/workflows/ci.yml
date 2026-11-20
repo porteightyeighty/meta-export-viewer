@@ -20,5 +20,6 @@ jobs:
       - run: npm ci
       - run: npm run typecheck
       - run: npm test
+      - run: npm run build:instagram
       - name: Repo hygiene (no exports, stray media or home paths)
         run: node scripts/leak-check.mjs --generic

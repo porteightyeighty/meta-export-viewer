@@ -1,8 +1,9 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory, createWebHistory } from "vue-router";
 import ProfileView from "./views/ProfileView.vue";
 
 export const router = createRouter({
-  history: createWebHistory(),
+  // Hash URLs on the static site: any host serves them, and offline only needs index.html.
+  history: import.meta.env.PROD ? createWebHashHistory() : createWebHistory(),
   routes: [
     {
       path: "/",

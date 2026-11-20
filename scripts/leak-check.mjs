@@ -21,7 +21,7 @@
 import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
-import { fixString } from "../packages/core/src/node/fixMojibake.ts";
+import { fixString } from "../packages/core/src/export/fixMojibake.ts";
 
 const args = new Set(process.argv.slice(2));
 const mode = args.has("--all") ? "all" : args.has("--generic") ? "generic" : "staged";

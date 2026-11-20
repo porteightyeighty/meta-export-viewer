@@ -1,5 +1,4 @@
-import path from "node:path";
-import type { ExportDir } from "@mev/core/node";
+import { basename, type ExportDir } from "@mev/core/export";
 
 export const VIDEO = /\.(mp4|mov|webm|m4v)$/i;
 
@@ -17,8 +16,8 @@ export function makeResolver(ex: ExportDir) {
     if (/^https?:/i.test(uri)) return undefined;
     const clean = uri.replace(/^\/+/, "");
     if (ex.exists(clean)) return clean;
-    byName ??= new Map([...ex.walk("media")].map((p) => [path.posix.basename(p), p]));
-    const hit = byName.get(path.posix.basename(clean));
+    byName ??= new Map([...ex.walk("media")].map((p) => [basename(p), p]));
+    const hit = byName.get(basename(clean));
     if (!hit && missing.push(clean) <= 5) ex.warn(`media file missing: ${clean}`);
     return hit;
   };

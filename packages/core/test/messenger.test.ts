@@ -1,14 +1,14 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import { ExportDir, inferMe, loadThreads, toShare } from "../src/node/index.ts";
+import { FsSource, fsExport, inferMe, loadThreads, toShare } from "../src/node/index.ts";
 
 const fixture = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../../fixtures/instagram-sample");
 const silent = { info() {}, warn() {} };
 const M = "your_instagram_activity/messages";
 
 describe("loadThreads (fixture)", () => {
-  const ex = new ExportDir(fixture, silent);
+  const ex = fsExport(fixture, silent);
   const resolved: string[] = [];
   const { me, threads } = loadThreads(
     ex,
@@ -62,12 +62,13 @@ describe("loadThreads (fixture)", () => {
 });
 
 describe("helpers", () => {
-  it("ExportDir.abs refuses paths outside the export", () => {
-    const ex = new ExportDir(fixture, silent);
-    expect(ex.abs("media/x.png")).toBe(path.join(fixture, "media/x.png"));
-    expect(() => ex.abs("../outside")).toThrow(/escapes/);
-    expect(() => ex.abs("/etc/passwd")).toThrow(/escapes/);
-    expect(() => ex.abs("media/../../instagram-sample-evil/x")).toThrow(/escapes/);
+  it("FsSource.abs refuses paths outside the export", () => {
+    const src = new FsSource(fixture);
+    const ex = fsExport(fixture, silent);
+    expect(src.abs("media/x.png")).toBe(path.join(fixture, "media/x.png"));
+    expect(() => src.abs("../outside")).toThrow(/escapes/);
+    expect(() => src.abs("/etc/passwd")).toThrow(/escapes/);
+    expect(() => src.abs("media/../../instagram-sample-evil/x")).toThrow(/escapes/);
     expect(ex.exists("../../package.json")).toBe(false);
   });
 

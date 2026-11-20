@@ -4,10 +4,12 @@
  */
 const HIGH_BYTE = /[\u0080-ÿ]/;
 const BEYOND_LATIN1 = /[^\u0000-ÿ]/;
+// Non-fatal (bad bytes → U+FFFD) and BOM kept, matching Buffer.toString("utf8").
+const utf8 = new TextDecoder("utf-8", { ignoreBOM: true });
 
 export function fixString(s: string): string {
   if (!HIGH_BYTE.test(s) || BEYOND_LATIN1.test(s)) return s;
-  const decoded = Buffer.from(s, "latin1").toString("utf8");
+  const decoded = utf8.decode(Uint8Array.from(s, (c) => c.charCodeAt(0)));
   // Not valid UTF-8 → the string was genuinely latin-1; leave it alone.
   return decoded.includes("�") ? s : decoded;
 }

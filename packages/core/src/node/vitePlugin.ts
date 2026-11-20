@@ -1,9 +1,8 @@
 import fs from "node:fs";
 import type { Plugin, ViteDevServer } from "vite";
 import sirv from "sirv";
-import { ExportDir, consoleLogger } from "./exportFs.ts";
-
-export type DataSet = Record<string, unknown>;
+import { buildDatasets, type DataSet, type ExportDir } from "../export/index.ts";
+import { fsExport } from "./fsSource.ts";
 
 export interface MetaExportOptions {
   /** Absolute path of the export root (already resolved). */
@@ -24,17 +23,9 @@ export function metaExport(opts: MetaExportOptions): Plugin {
   let building: Promise<void> | undefined;
 
   const rebuild = async () => {
-    const started = Date.now();
-    const ex = new ExportDir(opts.dir, consoleLogger);
+    const ex = fsExport(opts.dir);
     ex.info(`reading ${opts.source ?? "export"}: ${opts.dir}`);
-    try {
-      data = await opts.build(ex);
-      data.meta = { source: opts.source ?? "export", warnings: ex.warnings, builtAt: Date.now() };
-      ex.info(`built ${Object.keys(data).length} datasets in ${Date.now() - started}ms`);
-    } catch (e) {
-      ex.warn(`build failed: ${(e as Error).stack ?? e}`);
-      data = { meta: { source: opts.source, warnings: ex.warnings, error: String((e as Error).message ?? e) } };
-    }
+    data = await buildDatasets(ex, opts.build, opts.source ?? "export");
   };
 
   return {
