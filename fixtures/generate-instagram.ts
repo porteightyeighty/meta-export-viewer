@@ -380,4 +380,36 @@ write("your_instagram_activity/avatars_store/avatar_items.json", {
 });
 write("future_section/mystery_feature.json", { something_new: [{ note: "A section this viewer has never seen 🧭", count: 3 }] });
 
+// Your activity: likes, comments and story interactions, in Meta's label_values / string_map shapes.
+const owner = (u: string) => ({ title: "Owner", dict: [{ dict: [{ label: "URL", value: href(u) }, { label: "Name", value: u }, { label: "Username", value: u }], title: "" }] });
+const postUrl = (k: number, kind = "p") => ({ label: "URL", value: `https://www.instagram.com/${kind}/SAMPLE${k}/`, href: `https://www.instagram.com/${kind}/SAMPLE${k}/` });
+const LIKED = ["Trail mix and good company 🥾", "First loaf of the year 🍞", "", "Sketchbook, page 12", "Rainy café afternoon ☕", "Sunset over the bay 🌅"];
+write(
+  "your_instagram_activity/likes/liked_posts.json",
+  Array.from({ length: 30 }, (_, k) =>
+    lvEntry(ago(k * 9), [
+      postUrl(k, k % 5 ? "p" : "reel"),
+      { label: "Caption", value: LIKED[k % LIKED.length] },
+      { title: "Hashtags", dict: [] },
+      // one like has no owner, as happens for deleted accounts
+      ...(k === 7 ? [] : [owner(people[(k * 3) % 60])]),
+    ]),
+  ),
+);
+write("your_instagram_activity/likes/liked_comments.json", {
+  likes_comment_likes: [0, 1, 2, 3, 4].map((k) => ({ title: people[k + 2], string_list_data: [{ href: `https://www.instagram.com/p/SAMPLEC${k}/`, value: "👍", timestamp: ago(k * 20 + 3) }] })),
+});
+const COMMENTS = ["So good!! 😍", "Where is this?", "Saving this recipe", "Congrats 🎉", "Love the colours", "Miss you!", "Need to try this", "Haha yes"];
+const comment = (k: number) => ({ string_map_data: { Comment: { value: COMMENTS[k % COMMENTS.length] }, "Media Owner": { value: people[(k * 5) % 60] }, Time: { timestamp: ago(k * 15 + 1) } } });
+write("your_instagram_activity/comments/post_comments_1.json", Array.from({ length: 8 }, (_, k) => ({ media_list_data: [{ uri: "" }], ...comment(k) })));
+write("your_instagram_activity/comments/reels_comments.json", { comments_reels_comments: [8, 9].map(comment) });
+const SI = "your_instagram_activity/story_interactions";
+write(`${SI}/story_likes.json`, Array.from({ length: 10 }, (_, k) => lvEntry(ago(k * 12 + 2), [postUrl(100 + k, "stories"), owner(people[(k * 7) % 60])])));
+write(`${SI}/polls.json`, [lvEntry(ago(33), [{ label: "Question", value: "Pizza or pasta?" }, { label: "Option 1", value: "Pizza" }, { label: "Option 2", value: "Pasta" }, postUrl(200, "stories"), owner(people[4])])]);
+write(`${SI}/quizzes.json`, [lvEntry(ago(61), [{ label: "Question", value: "Which mountain is tallest?" }, { title: "Media", dict: [postUrl(201, "stories"), owner(people[9])] }])]);
+write(`${SI}/questions.json`, [lvEntry(ago(75), [{ label: "Question", value: "Best book this year?" }, { label: "Answer", value: "Piranesi" }, { title: "Media", dict: [postUrl(202, "stories"), owner(people[11])] }])]);
+write(`${SI}/emoji_sliders.json`, [lvEntry(ago(90), [{ label: "Question", value: "How excited for summer?" }, { label: "Emoji", value: "☀️" }, postUrl(203, "stories"), owner(people[13])])]);
+// countdowns.json is a single object, not a list
+write(`${SI}/countdowns.json`, lvEntry(ago(120), [{ label: "Text", value: "Trip to the coast" }, { label: "End time", timestamp_value: ago(100) }, postUrl(204, "stories"), owner(people[6])]));
+
 console.log(`wrote ${OUT}`);

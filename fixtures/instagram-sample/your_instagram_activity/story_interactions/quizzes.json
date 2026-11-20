@@ -1,0 +1,44 @@
+[
+  {
+    "timestamp": 1753933643,
+    "media": [],
+    "label_values": [
+      {
+        "label": "Question",
+        "value": "Which mountain is tallest?"
+      },
+      {
+        "title": "Media",
+        "dict": [
+          {
+            "label": "URL",
+            "value": "https://www.instagram.com/stories/SAMPLE201/",
+            "href": "https://www.instagram.com/stories/SAMPLE201/"
+          },
+          {
+            "title": "Owner",
+            "dict": [
+              {
+                "dict": [
+                  {
+                    "label": "URL",
+                    "value": "https://www.instagram.com/ineshikes"
+                  },
+                  {
+                    "label": "Name",
+                    "value": "ineshikes"
+                  },
+                  {
+                    "label": "Username",
+                    "value": "ineshikes"
+                  }
+                ],
+                "title": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

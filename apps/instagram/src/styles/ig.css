@@ -362,3 +362,7 @@ a.ig-dm-share:hover { filter: brightness(0.96); }
   .ig-accounts-back { display: inline-flex; }
   .mev-rec dl { grid-template-columns: 1fr; }
 }
+.ig-activity-tabs { padding: 0; overflow-x: auto; scrollbar-width: none; }
+.ig-activity-tabs button { white-space: nowrap; }
+.ig-activity-line { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ig-activity .ig-dm-row time { flex: none; }

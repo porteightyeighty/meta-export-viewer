@@ -35,6 +35,7 @@ export const router = createRouter({
       ],
     },
     { path: "/search", name: "search", component: () => import("./views/SearchView.vue") },
+    { path: "/activity", name: "activity", component: () => import("./views/ActivityView.vue") },
     { path: "/accounts/:file(.*)*", name: "accounts", component: () => import("./views/AccountsView.vue") },
     { path: "/:rest(.*)*", component: () => import("./views/ComingSoon.vue") },
   ],

@@ -1,0 +1,47 @@
+[
+  {
+    "timestamp": 1756359869,
+    "media": [],
+    "label_values": [
+      {
+        "label": "Question",
+        "value": "Pizza or pasta?"
+      },
+      {
+        "label": "Option 1",
+        "value": "Pizza"
+      },
+      {
+        "label": "Option 2",
+        "value": "Pasta"
+      },
+      {
+        "label": "URL",
+        "value": "https://www.instagram.com/stories/SAMPLE200/",
+        "href": "https://www.instagram.com/stories/SAMPLE200/"
+      },
+      {
+        "title": "Owner",
+        "dict": [
+          {
+            "dict": [
+              {
+                "label": "URL",
+                "value": "https://www.instagram.com/noor_reads"
+              },
+              {
+                "label": "Name",
+                "value": "noor_reads"
+              },
+              {
+                "label": "Username",
+                "value": "noor_reads"
+              }
+            ],
+            "title": ""
+          }
+        ]
+      }
+    ]
+  }
+]

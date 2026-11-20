@@ -68,11 +68,11 @@ Direction for the project. Phases build on each other; shared pieces go in `pack
   shared with Direct); `recordIndex` dataset built next to the Accounts Center files
 - The export has no search history, so there is no "Recent" list
 
-## 8. Activity (Notifications slot)
+## 8. Activity ✅ (Notifications slot)
 - The export holds only what you did, not notifications you received, so the heart item becomes "Your activity":
   likes (posts, comments, story likes), comments (posts, reels) and story interactions (polls, quizzes,
   questions, sliders, countdowns) as one timeline, filterable by type and grouped by date
-- These files move out of Accounts Center "Your activity" once they have this view
+- These files move out of Accounts Center "Your activity" once they have this view; saved posts stay there
 
 ## 9. Reels + nav cleanup
 - `/reels`: full-screen vertical player of your own video posts (same filter as the profile REELS tab),

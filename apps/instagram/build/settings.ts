@@ -2,6 +2,7 @@
 import { prettyKey, recordText, toRecords, type ExportDir, basename, dirname } from "@mev/core/export";
 import type { Rec } from "@mev/core/types";
 import { mediaUrl } from "./media.ts";
+import { ACTIVITY_FILES } from "./activity.ts";
 
 /** Files that already have their own views. */
 const SKIP =
@@ -33,7 +34,7 @@ export function buildSettings(ex: ExportDir, resolveUri: (uri: string) => string
   const recordIndex: RecordIndexRow[] = [];
 
   for (const rel of ex.walk("")) {
-    if (!rel.endsWith(".json") || SKIP.test(rel)) continue;
+    if (!rel.endsWith(".json") || SKIP.test(rel) || ACTIVITY_FILES.test(rel)) continue;
     const json = ex.readJson(rel);
     if (json === undefined) continue;
     const id = rel.replace(/\.json$/, "");

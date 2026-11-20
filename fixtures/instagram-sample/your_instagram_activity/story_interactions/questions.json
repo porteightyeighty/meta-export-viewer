@@ -1,0 +1,48 @@
+[
+  {
+    "timestamp": 1752732794,
+    "media": [],
+    "label_values": [
+      {
+        "label": "Question",
+        "value": "Best book this year?"
+      },
+      {
+        "label": "Answer",
+        "value": "Piranesi"
+      },
+      {
+        "title": "Media",
+        "dict": [
+          {
+            "label": "URL",
+            "value": "https://www.instagram.com/stories/SAMPLE202/",
+            "href": "https://www.instagram.com/stories/SAMPLE202/"
+          },
+          {
+            "title": "Owner",
+            "dict": [
+              {
+                "dict": [
+                  {
+                    "label": "URL",
+                    "value": "https://www.instagram.com/yara_runs"
+                  },
+                  {
+                    "label": "Name",
+                    "value": "yara_runs"
+                  },
+                  {
+                    "label": "Username",
+                    "value": "yara_runs"
+                  }
+                ],
+                "title": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

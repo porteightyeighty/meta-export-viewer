@@ -99,6 +99,22 @@ describe("buildInstagram (fixture)", () => {
     expect(logins.every(([, text]) => text.length > 0)).toBe(true);
   });
 
+  it("builds one newest-first activity timeline and keeps its files out of Accounts Center", () => {
+    const rows = d.activity;
+    const count = (k: string) => rows.filter((r) => r[0] === k).length;
+    expect([count("like"), count("comment-like"), count("comment"), count("story-like")]).toEqual([30, 5, 10, 10]);
+    // countdowns.json is a single object, not a list
+    expect(["poll", "quiz", "question", "slider", "countdown"].map(count)).toEqual([1, 1, 1, 1, 1]);
+    expect([...rows].sort((a, b) => b[1] - a[1])).toEqual(rows);
+    expect(rows.filter((r) => r[0] === "like" && !r[2])).toHaveLength(1); // the like without an owner
+    expect(rows.some((r) => r[3] === "Sunset over the bay 🌅")).toBe(true); // mojibake repaired
+    expect(rows.find((r) => r[0] === "question")![3]).toBe("Best book this year? · Piranesi");
+    expect(rows.find((r) => r[0] === "quiz")![4]).toMatch(/^https:\/\/www\.instagram\.com\/stories\//);
+    const ids = (d.settings as { files: { id: string }[] }[]).flatMap((s) => s.files.map((f) => f.id));
+    expect(ids.some((id) => /likes\/|comments\/|story_interactions\//.test(id))).toBe(false);
+    expect((d.recordIndex as [string, string][]).some(([id]) => id.includes("likes/"))).toBe(false);
+  });
+
   it("tolerates a missing export without throwing", () => {
     const warnings: string[] = [];
     const empty = buildInstagram(fsExport(path.join(fixture, "nope"), { info() {}, warn: (m) => warnings.push(m) }));
