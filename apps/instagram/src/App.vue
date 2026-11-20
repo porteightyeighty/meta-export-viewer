@@ -14,7 +14,7 @@ const direct = computed(() => route.path.startsWith("/direct"));
 <template>
   <div class="ig-app" :class="{ compact: direct }">
     <NavRail />
-    <main class="ig-main" :class="{ direct }">
+    <main class="ig-main" :class="{ direct: direct || route.path.startsWith('/accounts') }">
       <div v-if="meta?.source === 'fixture'" class="ig-banner">
         Demo data. Point <code>META_EXPORT</code> at your own export, or drop it into <code>exports/instagram/</code>.
       </div>

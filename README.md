@@ -9,7 +9,9 @@ entirely on your own machine. A Facebook viewer is planned and will share the sa
 - Direct messages: inbox and requests, full chats with photos, video, voice notes, shared posts/reels,
   reactions; search by friend, across all chats, or within one chat
 - Stories archive by month, with a full-screen viewer (progress bars, tap/arrow navigation, auto-advance)
-- Coming next: a Settings / Accounts Center area ([ROADMAP.md](ROADMAP.md))
+- Accounts Center: every other file in your export (personal details, login activity, likes, comments,
+  story interactions, blocked, close friends, ads, preferences…), grouped and searchable
+- Coming next: polish and a Facebook viewer ([ROADMAP.md](ROADMAP.md))
 
 > **Not affiliated with, endorsed by, or connected to Meta Platforms, Inc.** Instagram and
 > Facebook are trademarks of Meta. This project uses no Meta code or assets; icons are original.
@@ -59,12 +61,13 @@ Open <http://127.0.0.1:5173>. With no export configured, it shows a built-in **d
 ```
 packages/core/      shared by every platform
   src/node/         export reading: mojibake repair, schema helpers, media-size sniffing,
-                    Messenger-style thread loader (shared with Facebook),
+                    Messenger-style thread loader (shared with Facebook), any-file → records converter,
                     Vite plugin that builds datasets in Node and serves /api/data/*.json + /export/*
   src/client/       Vue building blocks: Lightbox, Carousel, SearchableList, MediaView, useData, date formats,
-                    chat layout + accent-insensitive search helpers
+                    RecordList, chat layout + accent-insensitive search helpers
 apps/instagram/
-  build/            Instagram export → profile / posts / archived / followers / following / threads
+  build/            Instagram export → profile / posts / archived / stories / followers / following /
+                    threads / settings
   src/              the Instagram-style UI (Vue 3 + vue-router)
 fixtures/           synthetic sample export + its generator (npm run fixture)
 ```

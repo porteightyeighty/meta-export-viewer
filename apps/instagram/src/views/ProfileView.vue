@@ -23,9 +23,9 @@ const shown = computed(() => (tab.value === "reels" ? reels.value : tab.value ==
       <section class="ig-profile-info">
         <div class="ig-profile-row">
           <h2 class="ig-username">{{ profile.username }}</h2>
-          <RouterLink class="ig-btn" to="/soon/accounts/edit">Edit profile</RouterLink>
+          <RouterLink class="ig-btn" to="/accounts/personal_information/personal_information/personal_information">Edit profile</RouterLink>
           <RouterLink class="ig-btn" to="/archive">View archive</RouterLink>
-          <RouterLink class="ig-icon-btn" to="/soon/accounts" aria-label="Settings"><Icon name="settings" /></RouterLink>
+          <RouterLink class="ig-icon-btn" to="/accounts" aria-label="Settings"><Icon name="settings" /></RouterLink>
         </div>
         <ul class="ig-counts">
           <li><b>{{ compactCount(profile.counts.posts) }}</b> posts</li>

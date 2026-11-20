@@ -27,7 +27,7 @@ const items = [
         <Avatar :src="profile?.avatar" :label="profile?.username" :size="24" /><span class="ig-rail-label">Profile</span>
       </RouterLink>
     </div>
-    <RouterLink to="/soon/accounts" class="ig-rail-item ig-rail-more" title="More">
+    <RouterLink to="/accounts" class="ig-rail-item ig-rail-more" title="More">
       <Icon name="menu" /><span class="ig-rail-label">More</span>
     </RouterLink>
   </nav>

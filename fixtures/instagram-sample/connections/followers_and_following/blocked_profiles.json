@@ -1,0 +1,47 @@
+[
+  {
+    "timestamp": 1750615407,
+    "media": [],
+    "label_values": [
+      {
+        "label": "Username",
+        "value": "otto.okafor50",
+        "href": "https://www.instagram.com/otto.okafor50"
+      },
+      {
+        "label": "Blocked",
+        "timestamp_value": 1750556307
+      }
+    ]
+  },
+  {
+    "timestamp": 1750546181,
+    "media": [],
+    "label_values": [
+      {
+        "label": "Username",
+        "value": "yara.runs51",
+        "href": "https://www.instagram.com/yara.runs51"
+      },
+      {
+        "label": "Blocked",
+        "timestamp_value": 1750546845
+      }
+    ]
+  },
+  {
+    "timestamp": 1750386166,
+    "media": [],
+    "label_values": [
+      {
+        "label": "Username",
+        "value": "finn.draws52",
+        "href": "https://www.instagram.com/finn.draws52"
+      },
+      {
+        "label": "Blocked",
+        "timestamp_value": 1750378568
+      }
+    ]
+  }
+]

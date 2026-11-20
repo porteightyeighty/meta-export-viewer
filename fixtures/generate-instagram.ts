@@ -354,4 +354,30 @@ const stories = [3, 3, 3, 4, 30, 30, 31, 58, 58, 58, 59, 60].map((d, k) =>
 );
 write("your_instagram_activity/media/stories.json", { ig_stories: stories.sort(() => rand() - 0.5) });
 
+// Settings / Accounts Center: one invented file per JSON shape the viewer must handle.
+const lvEntry = (ts: number, rows: unknown[]) => ({ timestamp: ts, media: [], label_values: rows });
+write(
+  "connections/followers_and_following/blocked_profiles.json",
+  people.slice(50, 53).map((u, k) => lvEntry(ago(100 + k), [{ label: "Username", value: u, href: href(u) }, { label: "Blocked", timestamp_value: ago(100 + k) }])),
+);
+write("preferences/settings/notification_preferences.json", lvEntry(ago(5), [
+  { label: "Email notifications", value: "Off" },
+  { title: "Push notifications", dict: [{ title: "Likes", dict: [{ label: "Setting", value: "From everyone" }] }, { title: "Comments", dict: [{ label: "Setting", value: "Off" }] }] },
+  { label: "Quiet hours", vec: [{ value: "22:00" }, { value: "07:00" }] },
+]));
+write("security_and_login_information/login_and_profile_creation/login_activity.json", {
+  account_history_login_history: [0, 1, 2].map((k) => ({
+    title: new Date(ago(k * 9) * 1000).toISOString(),
+    media_map_data: {},
+    string_map_data: { "IP address": { value: `192.0.2.${10 + k}` }, Time: { timestamp: ago(k * 9) }, "User agent": { value: "SampleBrowser/1.0" } },
+  })),
+});
+write("security_and_login_information/login_and_profile_creation/profile_privacy_changes.json", {
+  account_history_account_privacy_history: [{ title: "", media_list_data: [], string_list_data: [{ value: "Private", timestamp: ago(300) }] }],
+});
+write("your_instagram_activity/avatars_store/avatar_items.json", {
+  ig_avatar_marketplace_avatar_items: [{ item: "Sun hat", type: "headwear", acquisition_time: ago(40) }, { item: "Hiking boots", type: "footwear", acquisition_time: ago(41) }],
+});
+write("future_section/mystery_feature.json", { something_new: [{ note: "A section this viewer has never seen 🧭", count: 3 }] });
+
 console.log(`wrote ${OUT}`);
