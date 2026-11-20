@@ -7,7 +7,7 @@
  *   node scripts/leak-check.mjs --generic  generic rules only (used in CI)
  *
  * Generic rules (everyone): nothing committed under exports/, no media files
- * outside fixtures/, no absolute home-directory paths.
+ * outside fixtures/ and docs/screenshots/, no absolute home-directory paths.
  *
  * Personal rules (your machine only): identifiers are read at runtime and
  * never written to the repo, from
@@ -42,7 +42,8 @@ const MEDIA = /\.(jpe?g|png|webp|gif|heic|mp4|mov|m4a|mp3|aac|wav|opus)$/i;
 const HOME = new RegExp(["/" + "home/[a-z]", "/" + "Users/[A-Za-z]", "[A-Z]:\\\\" + "Users\\\\"].join("|"));
 for (const f of files) {
   if (f.startsWith("exports/") && f !== "exports/README.md") problems.push(`${f}: files under exports/ must not be committed`);
-  if (MEDIA.test(f) && !f.startsWith("fixtures/")) problems.push(`${f}: media file outside fixtures/`);
+  // docs/screenshots/ holds README images taken from the demo fixture only
+  if (MEDIA.test(f) && !/^(fixtures|docs\/screenshots)\//.test(f)) problems.push(`${f}: media file outside fixtures/ or docs/screenshots/`);
   if (MEDIA.test(f)) continue;
   const text = read(f).toString("utf8");
   if (HOME.test(text)) problems.push(`${f}: contains an absolute home-directory path`);

@@ -38,9 +38,15 @@ Direction for the project. Phases build on each other; shared pieces go in `pack
   `string_map_data`, `string_list_data`, plain objects); renderer `core/src/client/components/RecordList.vue`
 - Not yet: custom views per file (e.g. a map of login locations)
 
-## 5. Polish
-- Dark-mode toggle (currently follows the OS), mobile layout refinements, keyboard navigation throughout
-- Screenshots in README (from the demo fixture)
+## 5. Polish ✅
+- Appearance toggle in the nav rail: Auto (follows the OS) → Light → Dark, remembered per browser and applied
+  before first paint. Colours are `light-dark()` tokens, so each lives in one place (`core/src/client/theme.ts`)
+- Keyboard: visible focus rings, dialogs take focus, keep Tab inside and hand focus back on close,
+  ↑/↓ between search results (followers, Direct inbox, Accounts Center), tiles show their caption on focus
+- Mobile: bottom bar shows only working pages plus Appearance and More (Accounts Center was unreachable),
+  profile tabs fit at 390 px, modal arrows move to the bottom corners, story close button no longer covers pause
+- README screenshots from the demo fixture (`docs/screenshots/`, the only media allowed outside `fixtures/`)
+- Not done: swipe gestures, shortcut keys beyond the above
 
 ## 6. Facebook
 - Survey the Facebook export; `apps/facebook` with the Facebook look (top bar, feed/timeline, Friends,

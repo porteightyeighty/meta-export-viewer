@@ -1,47 +1,37 @@
-/* Instagram-like look. Light + dark tokens follow the OS setting. */
+/* Instagram-like look. Tokens are light-dark() pairs: the OS picks unless <html data-theme> overrides. */
 :root {
-  --bg: #fff;
-  --bg-elev: #fff;
-  --bg-hover: #efefef;
-  --bg-btn: #efefef;
-  --bg-btn-hover: #dbdbdb;
-  --text: #000;
-  --muted: #737373;
-  --border: #dbdbdb;
-  --link: #00376b;
+  color-scheme: light dark;
+  --bg: light-dark(#fff, #000);
+  --bg-elev: light-dark(#fff, #262626);
+  --bg-hover: light-dark(#efefef, #1a1a1a);
+  --bg-btn: light-dark(#efefef, #363636);
+  --bg-btn-hover: light-dark(#dbdbdb, #262626);
+  --text: light-dark(#000, #f5f5f5);
+  --muted: light-dark(#737373, #a8a8a8);
+  --border: light-dark(#dbdbdb, #363636);
+  --link: light-dark(#00376b, #e0f1ff);
   --primary: #0095f6;
   --overlay: rgba(0, 0, 0, 0.65);
   --tile-hover: rgba(0, 0, 0, 0.3);
   --rail-w: 244px;
-  --bubble-them: #efefef;
+  --bubble-them: light-dark(#efefef, #262626);
   --bubble-me: #3797f0;
-  --hit: #ffe58a;
+  --hit: light-dark(#ffe58a, #8a6d00);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 18px;
   color: var(--text);
   background: var(--bg);
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #000;
-    --bg-elev: #262626;
-    --bg-hover: #1a1a1a;
-    --bg-btn: #363636;
-    --bg-btn-hover: #262626;
-    --text: #f5f5f5;
-    --muted: #a8a8a8;
-    --border: #363636;
-    --link: #e0f1ff;
-    --bubble-them: #262626;
-    --hit: #8a6d00;
-  }
-}
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] { color-scheme: dark; }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; }
 code { font-size: 12px; }
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+input:focus-visible { outline-offset: 0; }
 
 .ig-app { display: flex; min-height: 100vh; }
 .ig-main { flex: 1; margin-left: var(--rail-w); min-width: 0; }
@@ -64,6 +54,8 @@ code { font-size: 12px; }
 .ig-rail-item .ig-icon { transition: transform 0.15s; }
 .ig-rail-item:hover .ig-icon { transform: scale(1.05); }
 .ig-rail-label { font-size: 16px; }
+button.ig-rail-item { border: 0; background: none; cursor: pointer; text-align: left; }
+.ig-rail-foot { display: flex; flex-direction: column; }
 @media (max-width: 1264px) {
   :root { --rail-w: 72px; }
   .ig-rail-label, .ig-wordmark { display: none; }
@@ -73,8 +65,9 @@ code { font-size: 12px; }
 @media (max-width: 767px) {
   :root { --rail-w: 0px; }
   .ig-rail { inset: auto 0 0 0; width: auto; height: 50px; flex-direction: row; padding: 0; border-right: 0; border-top: 1px solid var(--border); }
-  .ig-rail-brand, .ig-rail-more { display: none; }
-  .ig-rail-items { flex-direction: row; justify-content: space-around; align-items: center; }
+  .ig-rail-brand, .ig-rail-item.soon { display: none; }
+  .ig-rail { justify-content: space-around; align-items: center; }
+  .ig-rail-items, .ig-rail-foot { display: contents; }
   .ig-main { padding-bottom: 50px; }
 }
 
@@ -82,12 +75,8 @@ code { font-size: 12px; }
 .ig-avatar { display: inline-flex; flex: none; border-radius: 50%; overflow: hidden; background: var(--bg-btn); align-items: center; justify-content: center; }
 .ig-avatar img { width: 100%; height: 100%; object-fit: cover; }
 .ig-avatar.ring { box-shadow: 0 0 0 2px var(--bg), 0 0 0 3.5px #d62976; }
-.ig-avatar:has(.ig-avatar-fallback) { background: hsl(var(--hue) 45% 88%); }
-.ig-avatar-fallback { color: hsl(var(--hue) 35% 32%); font-weight: 600; }
-@media (prefers-color-scheme: dark) {
-  .ig-avatar:has(.ig-avatar-fallback) { background: hsl(var(--hue) 30% 26%); }
-  .ig-avatar-fallback { color: hsl(var(--hue) 50% 82%); }
-}
+.ig-avatar:has(.ig-avatar-fallback) { background: light-dark(hsl(var(--hue) 45% 88%), hsl(var(--hue) 30% 26%)); }
+.ig-avatar-fallback { color: light-dark(hsl(var(--hue) 35% 32%), hsl(var(--hue) 50% 82%)); font-weight: 600; }
 
 /* buttons */
 .ig-btn { display: inline-flex; align-items: center; height: 32px; padding: 0 16px; border-radius: 8px; background: var(--bg-btn); font-weight: 600; border: 0; cursor: pointer; }
@@ -119,13 +108,14 @@ code { font-size: 12px; }
 .ig-tabs { display: flex; justify-content: center; gap: 60px; border-top: 1px solid var(--border); }
 .ig-tabs a { display: flex; align-items: center; gap: 6px; height: 52px; font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); border-top: 1px solid transparent; margin-top: -1px; }
 .ig-tabs a.active { color: var(--text); border-top-color: var(--text); }
+@media (max-width: 735px) { .ig-tabs { gap: 0; justify-content: space-around; } }
 
 .ig-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
 .ig-tile { position: relative; aspect-ratio: 3 / 4; background: var(--bg-btn); overflow: hidden; }
 .ig-tile img, .ig-tile video { width: 100%; height: 100%; object-fit: cover; display: block; }
 .ig-tile-badge { position: absolute; top: 8px; right: 8px; color: #fff; filter: drop-shadow(0 0 2px rgba(0,0,0,.5)); }
 .ig-tile-hover { position: absolute; inset: 0; background: var(--tile-hover); color: #fff; font-weight: 600; display: flex; align-items: center; justify-content: center; padding: 16px; text-align: center; opacity: 0; transition: opacity 0.15s; }
-.ig-tile:hover .ig-tile-hover { opacity: 1; }
+.ig-tile:hover .ig-tile-hover, .ig-tile:focus-visible .ig-tile-hover { opacity: 1; }
 .ig-empty { text-align: center; padding: 60px 16px; }
 .ig-empty h3 { font-size: 30px; font-weight: 800; line-height: 36px; margin: 0 0 12px; }
 .ig-soon { padding-top: 120px; }
@@ -185,6 +175,10 @@ code { font-size: 12px; }
 .ig-post-missing { color: #fff; }
 @media (max-width: 900px) {
   .ig-modal .mev-lightbox-body { padding: 0 8px; }
+  /* arrows would cover the media: pin them to the bottom corners, above the story caption */
+  .ig-modal .mev-lightbox-nav { top: auto; bottom: 12px; transform: none; z-index: 2; opacity: .85; }
+  .ig-modal .mev-lightbox-close { z-index: 2; }
+  .ig-story-head { right: 48px; }
   .ig-post { flex-direction: column; height: auto; max-height: 94vh; max-width: 100%; overflow-y: auto; }
   .ig-post-media { width: 100%; min-height: 0; }
   .ig-post-side { width: auto; border-left: 0; }
@@ -197,7 +191,7 @@ code { font-size: 12px; }
 .ig-dialog-head .ig-icon-btn { position: absolute; right: 4px; }
 .ig-dialog-list { flex: 1; }
 .ig-dialog-list .mev-search-box { padding: 8px 16px; }
-.ig-dialog-list input { width: 100%; height: 36px; border: 0; border-radius: 8px; padding: 0 16px; background: var(--bg-btn); color: var(--text); font: inherit; outline: none; }
+.ig-dialog-list input { width: 100%; height: 36px; border: 0; border-radius: 8px; padding: 0 16px; background: var(--bg-btn); color: var(--text); font: inherit; }
 .ig-person { display: flex; align-items: center; gap: 12px; padding: 8px 16px; }
 .ig-person:hover { background: var(--bg-hover); }
 .ig-person-text { flex: 1; min-width: 0; display: flex; flex-direction: column; }
@@ -223,7 +217,7 @@ code { font-size: 12px; }
 .ig-dm-tabs button.active { color: var(--text); border-bottom-color: var(--text); }
 .ig-dm-search { flex: 1; min-height: 0; }
 .ig-dm-search .mev-search-box { padding: 12px 24px 8px; }
-.ig-dm-search input { width: 100%; height: 40px; border: 0; border-radius: 8px; padding: 0 16px; background: var(--bg-btn); color: var(--text); font: inherit; outline: none; }
+.ig-dm-search input { width: 100%; height: 40px; border: 0; border-radius: 8px; padding: 0 16px; background: var(--bg-btn); color: var(--text); font: inherit; }
 .ig-dm-row { display: flex; align-items: center; gap: 12px; padding: 8px 24px; }
 .ig-dm-row:hover { background: var(--bg-hover); }
 .ig-dm-row.open { background: var(--bg-btn); }
@@ -248,7 +242,7 @@ code { font-size: 12px; }
 .ig-dm-head .ig-icon-btn.on { color: var(--primary); }
 .ig-dm-back { display: none; }
 .ig-dm-searchbar { display: flex; align-items: center; gap: 4px; padding: 8px 16px; border-bottom: 1px solid var(--border); }
-.ig-dm-searchbar input { flex: 1; height: 34px; border: 0; border-radius: 8px; padding: 0 12px; background: var(--bg-btn); color: var(--text); font: inherit; outline: none; }
+.ig-dm-searchbar input { flex: 1; height: 34px; border: 0; border-radius: 8px; padding: 0 12px; background: var(--bg-btn); color: var(--text); font: inherit; }
 .ig-dm-searchbar .ig-muted { min-width: 64px; text-align: center; }
 .ig-dm-searchbar .ig-icon-btn:disabled { opacity: 0.3; cursor: default; }
 .ig-dm-scroll { flex: 1; overflow-y: auto; padding: 0 16px 16px; overflow-anchor: none; }
