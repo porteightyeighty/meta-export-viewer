@@ -1,13 +1,15 @@
 <script setup lang="ts">
+import type { RouteLocationRaw } from "vue-router";
 import type { Post } from "@mev/core/types";
 import Icon from "./Icon.vue";
 
-defineProps<{ posts: Post[]; routeName: string }>();
+/** `link` overrides `routeName` when tiles open different viewers (search results). */
+defineProps<{ posts: Post[]; routeName?: string; link?: (p: Post) => RouteLocationRaw }>();
 </script>
 
 <template>
   <div class="ig-grid">
-    <RouterLink v-for="p in posts" :key="p.id" :to="{ name: routeName, params: { id: p.id }, query: $route.query }" class="ig-tile">
+    <RouterLink v-for="p in posts" :key="p.id" :to="link ? link(p) : { name: routeName, params: { id: p.id }, query: $route.query }" class="ig-tile">
       <video v-if="p.media[0].kind === 'video'" :src="p.media[0].src + '#t=0.1'" preload="metadata" muted playsinline />
       <img v-else :src="p.media[0].src" alt="" loading="lazy" decoding="async" />
       <span v-if="p.media.length > 1" class="ig-tile-badge"><Icon name="carousel" :size="20" /></span>

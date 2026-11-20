@@ -1,5 +1,5 @@
 /** Every other JSON in the export → `settings` index + one `settings/<id>` dataset per file, shown generically. */
-import { prettyKey, toRecords, type ExportDir, basename, dirname } from "@mev/core/export";
+import { prettyKey, recordText, toRecords, type ExportDir, basename, dirname } from "@mev/core/export";
 import type { Rec } from "@mev/core/types";
 import { mediaUrl } from "./media.ts";
 
@@ -20,6 +20,8 @@ const OTHER = "Other";
 
 export interface SettingsFile { id: string; title: string; count: number }
 export interface SettingsSection { title: string; files: SettingsFile[] }
+/** [file id, searchable text of one record]; loaded only when someone searches. */
+export type RecordIndexRow = [string, string];
 
 export function buildSettings(ex: ExportDir, resolveUri: (uri: string) => string | undefined) {
   const media = (uri: string) => {
@@ -28,6 +30,7 @@ export function buildSettings(ex: ExportDir, resolveUri: (uri: string) => string
   };
   const sections = new Map<string, SettingsFile[]>([...SECTIONS.map(([t]) => [t, []] as [string, SettingsFile[]]), [OTHER, []]]);
   const data: Record<string, Rec[]> = {};
+  const recordIndex: RecordIndexRow[] = [];
 
   for (const rel of ex.walk("")) {
     if (!rel.endsWith(".json") || SKIP.test(rel)) continue;
@@ -36,6 +39,7 @@ export function buildSettings(ex: ExportDir, resolveUri: (uri: string) => string
     const id = rel.replace(/\.json$/, "");
     const recs = toRecords(json, { media });
     data[`settings/${id}`] = recs;
+    for (const r of recs) recordIndex.push([id, recordText(r).filter(Boolean).join(" · ")]);
     const section = SECTIONS.find(([, prefixes]) => prefixes.some((p) => rel.startsWith(p)))?.[0] ?? OTHER;
     sections.get(section)!.push({ id, title: prettyKey(basename(id).replace(/_\d+$/, "")), count: recs.length });
   }
@@ -51,5 +55,5 @@ export function buildSettings(ex: ExportDir, resolveUri: (uri: string) => string
     .filter(([, files]) => files.length)
     .map(([title, files]) => ({ title, files: files.sort((a, b) => a.title.localeCompare(b.title)) }));
   ex.info(`settings: ${Object.keys(data).length} files in ${settings.length} sections`);
-  return { settings, ...data };
+  return { settings, recordIndex, ...data };
 }

@@ -2,7 +2,7 @@
 /** Two-pane Direct inbox: searchable thread list on the left, the open chat on the right. */
 import { computed, ref, watch } from "vue";
 import { useRoute } from "vue-router";
-import { SearchableList, fetchData, fold, highlight, longDate, shortAgo, snippet, useData } from "@mev/core/client";
+import { SearchableList, highlight, longDate, shortAgo, snippet, useData, useIndexSearch } from "@mev/core/client";
 import type { ThreadBox, ThreadSummary } from "@mev/core/types";
 import type { Profile } from "../../build/index.ts";
 import type { MessageIndexRow } from "../../build/direct.ts";
@@ -27,19 +27,10 @@ const requestCount = computed(() => threads.value?.items.filter((t) => t.box ===
 
 // ── search across every chat's messages (index loaded on first use) ──
 const query = ref("");
-const index = ref<MessageIndexRow[]>();
-const MIN_CHARS = 3, MAX_HITS = 50;
-watch(query, (q) => {
-  if (q.trim().length >= MIN_CHARS && !index.value) fetchData<MessageIndexRow[]>("messageIndex").then((d) => (index.value = d));
-});
-// Fold once per index load, not once per message per keystroke.
-const folded = computed(() => index.value?.map((r) => fold(r[2])));
-const messageHits = computed(() => {
-  const q = fold(query.value.trim());
-  if (q.length < MIN_CHARS || !index.value || !folded.value) return { rows: [], total: 0 };
-  const f = folded.value;
-  const all = index.value.filter((_, i) => f[i].includes(q)).sort((a, b) => b[3] - a[3]);
-  return { rows: all.slice(0, MAX_HITS), total: all.length };
+const MAX_HITS = 50;
+const { hits: messageHits, loading: searching } = useIndexSearch<MessageIndexRow>("messageIndex", query, (r) => r[2], {
+  max: MAX_HITS,
+  order: (a, b) => b[3] - a[3],
 });
 </script>
 
@@ -97,7 +88,7 @@ const messageHits = computed(() => {
               </span>
             </RouterLink>
           </template>
-          <p v-else-if="query.trim().length >= MIN_CHARS && !index" class="mev-search-empty">Searching messages…</p>
+          <p v-else-if="searching" class="mev-search-empty">Searching messages…</p>
         </template>
       </SearchableList>
     </section>

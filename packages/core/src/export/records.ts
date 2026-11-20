@@ -110,3 +110,6 @@ function clean(f: RecField): RecField {
   return f;
 }
 const keep = (f: RecField) => !!(f.label || f.value || f.time || f.media || f.items?.length);
+
+/** Every searchable string in a record (title, labels, values, nested items). */
+export const recordText = (r: Rec): string[] => [r.title ?? "", ...r.fields.flatMap((f) => [f.label, f.value ?? "", ...(f.items ?? []).flatMap(recordText)])];
