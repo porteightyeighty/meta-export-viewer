@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { prettyKey, toRecords } from "../src/node/records.ts";
+import { prettyKey, toRecords } from "../src/export/records.ts";
 
 describe("toRecords", () => {
   it("reads label_values entries with nested dicts and vecs", () => {

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { fromStringList, fromStringMap, lvFind, lvFindAll, lvTop, lvValue, toMs, type LVItem } from "../src/node/flatten.ts";
+import { fromStringList, fromStringMap, lvFind, lvFindAll, lvTop, lvValue, toMs, type LVItem } from "../src/export/flatten.ts";
 
 describe("flatten helpers", () => {
   it("normalises timestamps to ms", () => {

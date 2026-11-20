@@ -2,7 +2,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-import { metaExport, resolveExportDir } from "@mev/core/node";
+import { metaExport, resolveExportDir, staticSite } from "@mev/core/node";
 import { buildInstagram, IG_MARKERS } from "./build/index.ts";
 
 const repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
@@ -14,7 +14,10 @@ const { dir, source } = resolveExportDir({
 });
 
 export default defineConfig({
-  plugins: [vue(), metaExport({ dir, source, build: buildInstagram })],
+  plugins: [vue(), metaExport({ dir, source, build: buildInstagram }), staticSite()],
+  // main.ts uses top-level await
+  build: { target: "es2022" },
+  worker: { format: "es" },
   // Local only: bind to loopback so the export is never exposed on the network.
   server: { host: "127.0.0.1", port: 5173, fs: { allow: [repo] } },
   preview: { host: "127.0.0.1" },

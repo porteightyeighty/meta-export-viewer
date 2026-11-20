@@ -1,14 +1,16 @@
+import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import { ExportDir } from "@mev/core/node";
-import { buildInstagram } from "../build/index.ts";
+import { ExportDir, fileSource, findRoot, subSource, type ReadBlob } from "@mev/core/export";
+import { fsExport } from "@mev/core/node";
+import { buildInstagram, IG_MARKERS } from "../build/index.ts";
 
 const fixture = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../../fixtures/instagram-sample");
 const silent = { info() {}, warn() {} };
 
 describe("buildInstagram (fixture)", () => {
-  const ex = new ExportDir(fixture, silent);
+  const ex = fsExport(fixture, silent);
   const d = buildInstagram(ex);
 
   it("builds the profile without leaking contact details", () => {
@@ -90,8 +92,27 @@ describe("buildInstagram (fixture)", () => {
 
   it("tolerates a missing export without throwing", () => {
     const warnings: string[] = [];
-    const empty = buildInstagram(new ExportDir(path.join(fixture, "nope"), { info() {}, warn: (m) => warnings.push(m) }));
+    const empty = buildInstagram(fsExport(path.join(fixture, "nope"), { info() {}, warn: (m) => warnings.push(m) }));
     expect(empty.posts).toEqual([]);
     expect(warnings.length).toBeGreaterThan(0);
+  });
+});
+
+describe("browser reader (fileSource) builds the same as the fs reader", () => {
+  it("matches on the fixture, picked with a wrapper folder", () => {
+    const bytes = new Map<Blob, Uint8Array>();
+    const files: [string, Blob][] = fs.readdirSync(fixture, { recursive: true, withFileTypes: true }).filter((d) => d.isFile()).map((d) => {
+      const abs = path.join(d.parentPath, d.name);
+      const b = new Uint8Array(fs.readFileSync(abs));
+      const blob = new Blob([b]);
+      bytes.set(blob, b);
+      return ["instagram-sample/" + path.relative(fixture, abs).split(path.sep).join("/"), blob];
+    });
+    const read: ReadBlob = (blob, s, e) => bytes.get(blob)!.subarray(s, e);
+    const src = fileSource(files, read);
+    const found = findRoot(src, IG_MARKERS);
+    expect(found).toEqual({ root: "instagram-sample" });
+    const viaFiles = buildInstagram(new ExportDir(subSource(src, "instagram-sample"), silent));
+    expect(viaFiles).toEqual(buildInstagram(fsExport(fixture, silent)));
   });
 });

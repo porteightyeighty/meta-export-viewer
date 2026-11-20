@@ -3,7 +3,7 @@
  * `{participants, messages, title, ...}`. Instagram and Facebook exports share
  * this schema; the caller supplies how media URIs map to served files.
  */
-import type { ExportDir } from "./exportFs.ts";
+import type { ExportDir } from "./exportDir.ts";
 import { webUrl } from "./flatten.ts";
 import type { ChatMessage, MediaItem, Reaction, Share, ShareKind, Thread, ThreadBox } from "../types/meta.ts";
 

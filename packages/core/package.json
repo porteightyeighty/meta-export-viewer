@@ -7,7 +7,8 @@
     "./node": "./src/node/index.ts",
     "./client": "./src/client/index.ts",
     "./client/*": "./src/client/*",
-    "./types": "./src/types/meta.ts"
+    "./types": "./src/types/meta.ts",
+    "./export": "./src/export/index.ts"
   },
   "scripts": {
     "typecheck": "vue-tsc --noEmit -p tsconfig.json"

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { fixMojibake, fixString } from "../src/node/fixMojibake.ts";
+import { fixMojibake, fixString } from "../src/export/fixMojibake.ts";
 
 const mangle = (s: string) => Buffer.from(s, "utf8").toString("latin1");
 
@@ -15,5 +15,13 @@ describe("fixMojibake", () => {
   });
   it("recurses through objects, arrays and keys", () => {
     expect(fixMojibake({ [mangle("ké")]: [mangle("ñ"), 3, null, { t: mangle("✨") }] })).toEqual({ ké: ["ñ", 3, null, { t: "✨" }] });
+  });
+});
+
+describe("fixString without Buffer", () => {
+  it("matches Buffer's UTF-8 decoding, BOM included", () => {
+    const mangled = (s: string) => Buffer.from(s, "utf8").toString("latin1");
+    for (const s of ["☀️ Zoë", "\uFEFFhi", "日本語 🥾"]) expect(fixString(mangled(s))).toBe(s);
+    expect(fixString("caf\u00e9")).toBe("caf\u00e9"); // genuine latin-1 stays
   });
 });

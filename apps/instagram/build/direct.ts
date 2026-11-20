@@ -1,5 +1,5 @@
 /** Instagram DMs → `threads`, `thread/<id>` and `messageIndex` datasets. */
-import { loadThreads, type ExportDir } from "@mev/core/node";
+import { loadThreads, type ExportDir } from "@mev/core/export";
 import { previewText } from "@mev/core/client/chat.ts";
 import type { MediaItem, Thread, ThreadSummary } from "@mev/core/types";
 import { mediaUrl } from "./media.ts";

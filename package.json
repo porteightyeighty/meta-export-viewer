@@ -13,7 +13,8 @@
     "typecheck": "npm run typecheck --workspaces --if-present",
     "test": "vitest run",
     "leakcheck": "node scripts/leak-check.mjs --all",
-    "prepare": "git config core.hooksPath .githooks 2>/dev/null || true"
+    "prepare": "git config core.hooksPath .githooks 2>/dev/null || true",
+    "build:instagram": "npm run build -w apps/instagram"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",

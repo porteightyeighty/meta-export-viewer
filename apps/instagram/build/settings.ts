@@ -1,6 +1,5 @@
 /** Every other JSON in the export → `settings` index + one `settings/<id>` dataset per file, shown generically. */
-import path from "node:path";
-import { prettyKey, toRecords, type ExportDir } from "@mev/core/node";
+import { prettyKey, toRecords, type ExportDir, basename, dirname } from "@mev/core/export";
 import type { Rec } from "@mev/core/types";
 import { mediaUrl } from "./media.ts";
 
@@ -38,13 +37,13 @@ export function buildSettings(ex: ExportDir, resolveUri: (uri: string) => string
     const recs = toRecords(json, { media });
     data[`settings/${id}`] = recs;
     const section = SECTIONS.find(([, prefixes]) => prefixes.some((p) => rel.startsWith(p)))?.[0] ?? OTHER;
-    sections.get(section)!.push({ id, title: prettyKey(path.posix.basename(id).replace(/_\d+$/, "")), count: recs.length });
+    sections.get(section)!.push({ id, title: prettyKey(basename(id).replace(/_\d+$/, "")), count: recs.length });
   }
   // Same name in two places, or a name already used by a view (Threads' followers.json): add the folder.
   const all = [...sections.values()].flat();
   const taken = new Set(["Followers", "Following"]);
   for (const f of all) {
-    const folder = prettyKey(path.posix.basename(path.posix.dirname(f.id)));
+    const folder = prettyKey(basename(dirname(f.id)));
     if (folder !== f.title && (taken.has(f.title) || all.some((g) => g !== f && g.title === f.title))) f.title += ` (${folder})`;
   }
 

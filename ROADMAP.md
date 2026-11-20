@@ -48,25 +48,34 @@ Direction for the project. Phases build on each other; shared pieces go in `pack
 - README screenshots from the demo fixture (`docs/screenshots/`, the only media allowed outside `fixtures/`)
 - Not done: swipe gestures, shortcut keys beyond the above
 
-## 6. Search
+## 6. Static site (in-browser, offline) ✅
+- `npm run build:instagram` makes a static site: visitors pick their unzipped export folder and it's parsed in
+  their browser (Web Worker + `FileReaderSync`), media shown from disk via `blob:` URLs, nothing uploaded
+- The same builders run in Node and the browser: `core/src/export/` has no Node imports, `ExportDir` reads
+  through an `ExportSource` (file system or picked Files), and a test checks both give identical datasets
+- Content-Security-Policy `<meta>` (`connect-src 'self'`, inline script allowed by hash only) and a
+  cache-first service worker so the app opens offline; hash routing, so any static host works
+- Not done: .zip input, drag-and-drop, a demo button on the hosted site, remembering the export between visits
+
+## 7. Search
 - Search item in the nav rail opens a panel like Instagram's: one box that searches post captions, hashtags,
   places, followers / following, chat names, message text and Accounts Center records, grouped by type
 - Each hit links to where it lives (post viewer, thread at the message, record card). The export has no
   search history, so there is no "Recent" list
 
-## 7. Activity (Notifications slot)
+## 8. Activity (Notifications slot)
 - The export holds only what you did, not notifications you received, so the heart item becomes "Your activity":
   likes (posts, comments, story likes), comments (posts, reels) and story interactions (polls, quizzes,
   questions, sliders, countdowns) as one timeline, filterable by type and grouped by date
 - These files move out of Accounts Center "Your activity" once they have this view
 
-## 8. Reels + nav cleanup
+## 9. Reels + nav cleanup
 - `/reels`: full-screen vertical player of your own video posts (same filter as the profile REELS tab),
   ↑/↓ or scroll-snap between them, autoplay muted with a sound toggle
 - Remove Home and Explore: both are feeds Instagram picks for you, and the export has none of that data
 - After this, no nav item is a placeholder, and `/soon` can go
 
-## 9. Facebook
+## 10. Facebook
 - Survey the Facebook export; `apps/facebook` with the Facebook look (top bar, feed/timeline, Friends,
   Messenger, Settings & privacy), reusing the core loaders and components
 
@@ -75,7 +84,7 @@ Direction for the project. Phases build on each other; shared pieces go in `pack
 | Shared (`packages/core`) | Instagram-only (`apps/instagram`) | Likely Facebook twin |
 | --- | --- | --- |
 | Mojibake repair, label_values / string_map helpers | Post grid, profile header | Timeline, profile cover |
-| Export folder reading, media-size sniffing, Vite plugin | Followers / following | Friends list |
+| Export folder reading (Node or browser), media-size sniffing, Vite plugins | Followers / following | Friends list |
 | Lightbox, Carousel, MediaView, SearchableList | Reels tab | Videos |
 | Messenger thread loader, chat layout + search helpers | Direct UI and styling | Messenger UI |
 | Export file → records converter, RecordList | Accounts Center sidebar | Settings & privacy sections |
