@@ -1,0 +1,332 @@
+[
+  {
+    "timestamp": 1759032133,
+    "media": [],
+    "label_values": [
+      {
+        "label": "URL",
+        "value": "https://www.instagram.com/stories/SAMPLE100/",
+        "href": "https://www.instagram.com/stories/SAMPLE100/"
+      },
+      {
+        "title": "Owner",
+        "dict": [
+          {
+            "dict": [
+              {
+                "label": "URL",
+                "value": "https://www.instagram.com/river.okafor"
+              },
+              {
+                "label": "Name",
+                "value": "river.okafor"
+              },
+              {
+                "label": "Username",
+                "value": "river.okafor"
+              }
+            ],
+            "title": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "timestamp": 1758008935,
+    "media": [],
+    "label_values": [
+      {
+        "label": "URL",
+        "value": "https://www.instagram.com/stories/SAMPLE101/",
+        "href": "https://www.instagram.com/stories/SAMPLE101/"
+      },
+      {
+        "title": "Owner",
+        "dict": [
+          {
+            "dict": [
+              {
+                "label": "URL",
+                "value": "https://www.instagram.com/lena.travels"
+              },
+              {
+                "label": "Name",
+                "value": "lena.travels"
+              },
+              {
+                "label": "Username",
+                "value": "lena.travels"
+              }
+            ],
+            "title": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "timestamp": 1756972712,
+    "media": [],
+    "label_values": [
+      {
+        "label": "URL",
+        "value": "https://www.instagram.com/stories/SAMPLE102/",
+        "href": "https://www.instagram.com/stories/SAMPLE102/"
+      },
+      {
+        "title": "Owner",
+        "dict": [
+          {
+            "dict": [
+              {
+                "label": "URL",
+                "value": "https://www.instagram.com/omar_reads"
+              },
+              {
+                "label": "Name",
+                "value": "omar_reads"
+              },
+              {
+                "label": "Username",
+                "value": "omar_reads"
+              }
+            ],
+            "title": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "timestamp": 1755908487,
+    "media": [],
+    "label_values": [
+      {
+        "label": "URL",
+        "value": "https://www.instagram.com/stories/SAMPLE103/",
+        "href": "https://www.instagram.com/stories/SAMPLE103/"
+      },
+      {
+        "title": "Owner",
+        "dict": [
+          {
+            "dict": [
+              {
+                "label": "URL",
+                "value": "https://www.instagram.com/jun.runs21"
+              },
+              {
+                "label": "Name",
+                "value": "jun.runs21"
+              },
+              {
+                "label": "Username",
+                "value": "jun.runs21"
+              }
+            ],
+            "title": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "timestamp": 1754912176,
+    "media": [],
+    "label_values": [
+      {
+        "label": "URL",
+        "value": "https://www.instagram.com/stories/SAMPLE104/",
+        "href": "https://www.instagram.com/stories/SAMPLE104/"
+      },
+      {
+        "title": "Owner",
+        "dict": [
+          {
+            "dict": [
+              {
+                "label": "URL",
+                "value": "https://www.instagram.com/ravi_cooks28"
+              },
+              {
+                "label": "Name",
+                "value": "ravi_cooks28"
+              },
+              {
+                "label": "Username",
+                "value": "ravi_cooks28"
+              }
+            ],
+            "title": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "timestamp": 1753904065,
+    "media": [],
+    "label_values": [
+      {
+        "label": "URL",
+        "value": "https://www.instagram.com/stories/SAMPLE105/",
+        "href": "https://www.instagram.com/stories/SAMPLE105/"
+      },
+      {
+        "title": "Owner",
+        "dict": [
+          {
+            "dict": [
+              {
+                "label": "URL",
+                "value": "https://www.instagram.com/bea_plays35"
+              },
+              {
+                "label": "Name",
+                "value": "bea_plays35"
+              },
+              {
+                "label": "Username",
+                "value": "bea_plays35"
+              }
+            ],
+            "title": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "timestamp": 1752875359,
+    "media": [],
+    "label_values": [
+      {
+        "label": "URL",
+        "value": "https://www.instagram.com/stories/SAMPLE106/",
+        "href": "https://www.instagram.com/stories/SAMPLE106/"
+      },
+      {
+        "title": "Owner",
+        "dict": [
+          {
+            "dict": [
+              {
+                "label": "URL",
+                "value": "https://www.instagram.com/ada.draws42"
+              },
+              {
+                "label": "Name",
+                "value": "ada.draws42"
+              },
+              {
+                "label": "Username",
+                "value": "ada.draws42"
+              }
+            ],
+            "title": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "timestamp": 1751760178,
+    "media": [],
+    "label_values": [
+      {
+        "label": "URL",
+        "value": "https://www.instagram.com/stories/SAMPLE107/",
+        "href": "https://www.instagram.com/stories/SAMPLE107/"
+      },
+      {
+        "title": "Owner",
+        "dict": [
+          {
+            "dict": [
+              {
+                "label": "URL",
+                "value": "https://www.instagram.com/ines_hikes49"
+              },
+              {
+                "label": "Name",
+                "value": "ines_hikes49"
+              },
+              {
+                "label": "Username",
+                "value": "ines_hikes49"
+              }
+            ],
+            "title": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "timestamp": 1750764330,
+    "media": [],
+    "label_values": [
+      {
+        "label": "URL",
+        "value": "https://www.instagram.com/stories/SAMPLE108/",
+        "href": "https://www.instagram.com/stories/SAMPLE108/"
+      },
+      {
+        "title": "Owner",
+        "dict": [
+          {
+            "dict": [
+              {
+                "label": "URL",
+                "value": "https://www.instagram.com/theolovelace56"
+              },
+              {
+                "label": "Name",
+                "value": "theolovelace56"
+              },
+              {
+                "label": "Username",
+                "value": "theolovelace56"
+              }
+            ],
+            "title": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "timestamp": 1749746026,
+    "media": [],
+    "label_values": [
+      {
+        "label": "URL",
+        "value": "https://www.instagram.com/stories/SAMPLE109/",
+        "href": "https://www.instagram.com/stories/SAMPLE109/"
+      },
+      {
+        "title": "Owner",
+        "dict": [
+          {
+            "dict": [
+              {
+                "label": "URL",
+                "value": "https://www.instagram.com/milo.bakes"
+              },
+              {
+                "label": "Name",
+                "value": "milo.bakes"
+              },
+              {
+                "label": "Username",
+                "value": "milo.bakes"
+              }
+            ],
+            "title": ""
+          }
+        ]
+      }
+    ]
+  }
+]

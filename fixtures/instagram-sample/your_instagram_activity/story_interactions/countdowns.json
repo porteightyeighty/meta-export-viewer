@@ -1,0 +1,41 @@
+{
+  "timestamp": 1748900959,
+  "media": [],
+  "label_values": [
+    {
+      "label": "Text",
+      "value": "Trip to the coast"
+    },
+    {
+      "label": "End time",
+      "timestamp_value": 1750612537
+    },
+    {
+      "label": "URL",
+      "value": "https://www.instagram.com/stories/SAMPLE204/",
+      "href": "https://www.instagram.com/stories/SAMPLE204/"
+    },
+    {
+      "title": "Owner",
+      "dict": [
+        {
+          "dict": [
+            {
+              "label": "URL",
+              "value": "https://www.instagram.com/kofi_lovelace"
+            },
+            {
+              "label": "Name",
+              "value": "kofi_lovelace"
+            },
+            {
+              "label": "Username",
+              "value": "kofi_lovelace"
+            }
+          ],
+          "title": ""
+        }
+      ]
+    }
+  ]
+}

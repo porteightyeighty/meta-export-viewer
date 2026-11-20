@@ -8,6 +8,8 @@ import type { MessageIndexRow } from "../../build/direct.ts";
 import type { RecordIndexRow, SettingsSection } from "../../build/settings.ts";
 import Avatar from "../components/Avatar.vue";
 import PostGrid from "../components/PostGrid.vue";
+import type { ActivityRow } from "../../build/activity.ts";
+import { VERB } from "../activity.ts";
 
 const route = useRoute();
 const router = useRouter();
@@ -19,7 +21,7 @@ watch(query, (v) => v !== urlQuery() && router.replace({ query: v ? { q: v } : {
 watch(urlQuery, (v) => v !== query.value && (query.value = v));
 const q = computed(() => query.value.trim());
 
-const PREVIEW = { accounts: 5, posts: 6, chats: 5, messages: 5, info: 5 };
+const PREVIEW = { accounts: 5, posts: 6, chats: 5, messages: 5, activity: 5, info: 5 };
 type Group = keyof typeof PREVIEW;
 const expanded = reactive(new Set<Group>());
 watch(q, () => expanded.clear());
@@ -70,6 +72,7 @@ const chatHits = computed(() =>
 // ── message text and Accounts Center records: big indexes, loaded on first 3+ character query ──
 const MAX_MESSAGES = 100;
 const messages = useIndexSearch<MessageIndexRow>("messageIndex", query, (r) => r[2], { max: MAX_MESSAGES, order: (a, b) => b[3] - a[3] });
+const activity = useIndexSearch<ActivityRow>("activity", query, (r) => `${r[2]} ${r[3]}`);
 const records = useIndexSearch<RecordIndexRow>("recordIndex", query, (r) => r[1]);
 const { data: settings } = useData<SettingsSection[]>("settings");
 const files = computed(() => settings.value?.flatMap((s) => s.files) ?? []);
@@ -87,7 +90,7 @@ const infoHits = computed(() => {
   return [...byFile.values()];
 });
 
-const searching = computed(() => messages.loading.value || records.loading.value);
+const searching = computed(() => messages.loading.value || activity.loading.value || records.loading.value);
 const nothing = computed(
   () =>
     !searching.value &&
@@ -95,6 +98,7 @@ const nothing = computed(
     !postHits.value.length &&
     !chatHits.value.length &&
     !messages.hits.value.total &&
+    !activity.hits.value.total &&
     !infoHits.value.length,
 );
 
@@ -108,7 +112,7 @@ onMounted(() => root.value?.querySelector<HTMLInputElement>(".mev-search-box inp
     <SearchableList v-model:query="query" class="ig-search" :items="[]" :keys="() => []" placeholder="Search">
       <template #empty><span /></template>
       <template #after>
-        <p v-if="!q" class="mev-search-empty">Posts, hashtags, places, people, chats, messages and your information.</p>
+        <p v-if="!q" class="mev-search-empty">Posts, hashtags, places, people, chats, messages, your activity and your information.</p>
         <template v-else>
           <section v-if="accountHits.length">
             <h3 class="ig-search-section">Accounts <span class="ig-muted">{{ accountHits.length }}</span></h3>
@@ -165,6 +169,29 @@ onMounted(() => root.value?.querySelector<HTMLInputElement>(".mev-search-box inp
             </button>
           </section>
 
+          <section v-if="activity.hits.value.total">
+            <h3 class="ig-search-section">Your activity <span class="ig-muted">{{ activity.hits.value.total }}</span></h3>
+            <component
+              :is="href ? 'a' : 'div'"
+              v-for="[kind, ts, owner, text, href] in take('activity', activity.hits.value.rows)"
+              :key="kind + ts + href"
+              class="ig-dm-row"
+              :href="href || undefined"
+              :target="href ? '_blank' : undefined"
+              :rel="href ? 'noreferrer' : undefined"
+            >
+              <Avatar :label="owner || '?'" :size="44" />
+              <span class="ig-dm-row-text">
+                <span class="ig-dm-row-title">{{ VERB[kind] }} <b><template v-for="(s, k) in highlight(owner || 'someone', q)" :key="k"><span v-if="s.hit" class="ig-hit">{{ s.text }}</span><template v-else>{{ s.text }}</template></template></b></span>
+                <span class="ig-dm-row-preview ig-muted">
+                  <span v-if="text" class="ig-dm-row-snippet"><template v-for="(s, k) in highlight(snippet(text, q), q)" :key="k"><b v-if="s.hit" class="ig-hit">{{ s.text }}</b><template v-else>{{ s.text }}</template></template></span>
+                  <template v-if="text">·</template> {{ longDate(ts) }}
+                </span>
+              </span>
+            </component>
+            <button v-if="more('activity', activity.hits.value.total)" class="ig-search-more" @click="expanded.add('activity')">Show all {{ activity.hits.value.total }}</button>
+          </section>
+
           <section v-if="infoHits.length">
             <h3 class="ig-search-section">Your information <span class="ig-muted">{{ infoHits.length }}</span></h3>
             <RouterLink v-for="f in take('info', infoHits)" :key="f.id" :to="{ path: `/accounts/${f.id}`, query: f.text ? { q } : {} }" class="ig-dm-row">
@@ -179,9 +206,9 @@ onMounted(() => root.value?.querySelector<HTMLInputElement>(".mev-search-box inp
             <button v-if="more('info', infoHits.length)" class="ig-search-more" @click="expanded.add('info')">Show all {{ infoHits.length }}</button>
           </section>
 
-          <p v-if="searching" class="mev-search-empty">Searching messages and your information…</p>
+          <p v-if="searching" class="mev-search-empty">Searching messages, your activity and your information…</p>
           <p v-else-if="nothing" class="mev-search-empty">No results found.</p>
-          <p v-if="q.length < MIN_CHARS" class="mev-search-empty ig-small">Type {{ MIN_CHARS }} or more characters to search messages and your information.</p>
+          <p v-if="q.length < MIN_CHARS" class="mev-search-empty ig-small">Type {{ MIN_CHARS }} or more characters to search messages, your activity and your information.</p>
         </template>
       </template>
     </SearchableList>

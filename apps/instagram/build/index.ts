@@ -19,6 +19,7 @@ import type { MediaItem, Person, Post } from "@mev/core/types";
 import { makeResolver, mediaUrl, VIDEO } from "./media.ts";
 import { buildDirect } from "./direct.ts";
 import { buildSettings } from "./settings.ts";
+import { buildActivity } from "./activity.ts";
 
 /** Folders whose presence identifies an Instagram export root. */
 export const IG_MARKERS = ["your_instagram_activity", "personal_information", "connections"];
@@ -156,7 +157,7 @@ export function buildInstagram(ex: ExportDir) {
   ex.info(`profile @${profile.username}: ${posts.length} posts, ${archived.length} archived, ${stories.length} stories, ${followers.length} followers, ${following.length} following`);
 
   const direct = buildDirect(ex, resolveUri, profile.name);
-  return { profile, posts, archived, stories, followers, following, ...direct, ...buildSettings(ex, resolveUri) };
+  return { profile, posts, archived, stories, followers, following, ...direct, ...buildActivity(ex), ...buildSettings(ex, resolveUri) };
 }
 
 /** Lists are either bare arrays or wrapped in a single `relationships_*` key. */

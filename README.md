@@ -17,9 +17,11 @@ entirely on your own machine: run it locally, or open a hosted copy that reads y
 - Direct messages: inbox and requests, full chats with photos, video, voice notes, shared posts/reels,
   reactions; search by friend, across all chats, or within one chat
 - Stories archive by month, with a full-screen viewer (progress bars, tap/arrow navigation, auto-advance)
-- Accounts Center: every other file in your export (personal details, login activity, likes, comments,
-  story interactions, blocked, close friends, ads, preferences…), grouped and searchable
-- Search across everything from one box: people, posts (caption, #hashtag, place), chats, message text and
+- Accounts Center: every other file in your export (personal details, login activity, saved posts,
+  blocked, close friends, ads, preferences…), grouped and searchable
+- Your activity (the heart): every like, comment and story interaction (polls, quizzes, questions, sliders) as one
+  timeline by month, filterable by type, each linking to the post on instagram.com
+- Search across everything from one box: people, posts (caption, #hashtag, place), chats, message text, your activity and
   Accounts Center files and records; tap a #hashtag or @mention in a caption to search for it
 - Light / dark / follow-the-OS theme (Appearance in the sidebar), phone-sized layout
 - Keyboard friendly: Tab through everything, Enter opens, Esc closes, ←/→ between posts and stories,

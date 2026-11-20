@@ -1,0 +1,43 @@
+[
+  {
+    "timestamp": 1751440162,
+    "media": [],
+    "label_values": [
+      {
+        "label": "Question",
+        "value": "How excited for summer?"
+      },
+      {
+        "label": "Emoji",
+        "value": "\u00e2\u0098\u0080\u00ef\u00b8\u008f"
+      },
+      {
+        "label": "URL",
+        "value": "https://www.instagram.com/stories/SAMPLE203/",
+        "href": "https://www.instagram.com/stories/SAMPLE203/"
+      },
+      {
+        "title": "Owner",
+        "dict": [
+          {
+            "dict": [
+              {
+                "label": "URL",
+                "value": "https://www.instagram.com/sukibakes"
+              },
+              {
+                "label": "Name",
+                "value": "sukibakes"
+              },
+              {
+                "label": "Username",
+                "value": "sukibakes"
+              }
+            ],
+            "title": ""
+          }
+        ]
+      }
+    ]
+  }
+]
